@@ -1,0 +1,261 @@
+<a class="skip-link" href="#content">Saltar al contenido</a>
+
+<header class="topnav">
+  <div class="container topnav-inner">
+    <a class="logo" href="#inicio" aria-label="Ir al inicio">
+      <span class="logo-dot"></span>
+      <span class="logo-name">MATEO SILVA / DEV</span>
+    </a>
+
+    <nav aria-label="Navegación principal">
+      <a href="#experiencia">Experiencia</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <a class="btn btn-secondary" [href]="'mailto:' + email">Enviar correo</a>
+  </div>
+</header>
+
+<main id="content">
+  <section class="section hero" id="inicio">
+    <div class="container hero-split">
+      <div class="reveal visible">
+        <p class="eyebrow">MATEO SILVA · FULL STACK DEVELOPER</p>
+        <h1>Web, backend y móvil.</h1>
+        <p class="lead hero-lead">
+          Desarrollador con más de tres años de experiencia construyendo soluciones web y móviles,
+          desde la arquitectura hasta producción.
+        </p>
+        <div class="hero-cta hero-actions">
+          <a class="btn btn-primary" href="#experiencia">Ver experiencia</a>
+          <a class="btn btn-ghost btn-arrow" href="#proyectos">Revisar proyectos</a>
+        </div>
+        <p class="availability">3+ años · Web · Mobile · Liderazgo técnico</p>
+      </div>
+
+      <div
+        class="orbital orbital-photo reveal visible"
+        id="orbital"
+        role="group"
+        aria-label="Retrato de Mateo Silva rodeado por sus tecnologías principales"
+        [class.motion-paused]="isMotionPaused()"
+        (pointermove)="onOrbitalMove($event)"
+        (pointerleave)="resetOrbital()"
+      >
+        <div class="orbital-stage" #orbitalStage>
+          <div class="orbit" aria-hidden="true"></div>
+          <div class="orbit" aria-hidden="true"></div>
+          <div class="orbit" aria-hidden="true"></div>
+
+          <div class="profile-visual">
+            <div class="profile-photo" aria-live="polite">
+              @if (profileImage) {
+                <img [src]="profileImage" alt="Retrato profesional de Mateo Silva">
+              } @else {
+                <div class="photo-placeholder">
+                  <strong>[ FOTO 4:5 ]</strong>
+                  Guarda tu retrato en assets/ y actualiza profileImage en app.ts.
+                </div>
+              }
+            </div>
+            <span class="profile-badge">FULL STACK / TECH LEAD</span>
+            <div class="profile-caption">
+              <strong>MATEO SILVA</strong>
+              <span>COLOMBIA</span>
+            </div>
+          </div>
+
+          <span class="node node-a">ANGULAR</span>
+          <span class="node node-b">SPRING BOOT</span>
+          <span class="node node-c">DOCKER</span>
+        </div>
+
+        <span class="orbital-note meta">Mueve el cursor para explorar el stack</span>
+        <button
+          class="motion-toggle"
+          type="button"
+          [attr.aria-pressed]="isMotionPaused()"
+          (click)="toggleMotion()"
+        >
+          {{ isMotionPaused() ? '[ ▶ ] REANUDAR' : '[ II ] PAUSAR' }}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section scene scene-stack">
+    <div class="container">
+      <div class="section-heading reveal visible">
+        <p class="eyebrow">LO QUE HAGO</p>
+        <h2>Con qué trabajo</h2>
+      </div>
+      <div class="service-grid reveal visible">
+        <article class="service"><span class="num">01 / FULL STACK</span><h3>Aplicaciones completas</h3><p>Angular conectado con Java, Spring Boot y PHP.</p></article>
+        <article class="service"><span class="num">02 / BACKEND</span><h3>Servicios e integraciones</h3><p>APIs REST, lógica de negocio y componentes mantenibles.</p></article>
+        <article class="service"><span class="num">03 / FRONTEND</span><h3>Interfaces web</h3><p>Experiencias responsive con Angular y TypeScript.</p></article>
+        <article class="service"><span class="num">04 / MOBILE</span><h3>Aplicaciones Android</h3><p>Soluciones internas orientadas a procesos.</p></article>
+        <article class="service"><span class="num">05 / DEVOPS</span><h3>QA y producción</h3><p>Docker, Ubuntu y publicación de servicios.</p></article>
+        <article class="service"><span class="num">06 / LIDERAZGO</span><h3>Dirección técnica</h3><p>Arquitectura, coordinación y buenas prácticas.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section scene scene-experience" id="experiencia">
+    <div class="container">
+      <div class="section-heading reveal visible">
+        <p class="eyebrow">EXPERIENCIA · PLAYTECH</p>
+        <h2>Mi experiencia profesional</h2>
+        <p class="lead section-lead">Más de tres años participando en todo el ciclo de vida del software.</p>
+      </div>
+      <div class="timeline reveal visible">
+        <article class="timeline-item">
+          <div class="meta">MAY 2025 — ACTUALIDAD<br>PLAYTECH</div>
+          <div>
+            <h3>Líder de Desarrollo / Desarrollador de Software</h3>
+            <p>Coordino tareas técnicas, acompaño decisiones de arquitectura y desarrollo soluciones web y móviles. También planifico despliegues de QA y producción sobre Ubuntu y Docker.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="meta">AGO 2022 — MAY 2025<br>PLAYTECH</div>
+          <div>
+            <h3>Desarrollador de Software</h3>
+            <p>Desarrollé y mantuve aplicaciones empresariales con Spring Boot, PHP y Angular, además de soluciones Android, integraciones y servicios contenerizados.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section scene scene-projects" id="proyectos">
+    <div class="container">
+      <div class="section-heading reveal visible">
+        <p class="eyebrow">PROYECTOS</p>
+        <h2>Casos que pronto contarán el proceso completo.</h2>
+        <p class="lead section-lead">Añade capturas, responsabilidades y resultados cuando estén listos para publicar.</p>
+      </div>
+
+      <div class="project-toolbar reveal visible">
+        <span class="meta" aria-live="polite">{{ projects.length }} {{ projects.length === 1 ? 'proyecto' : 'proyectos' }}</span>
+      </div>
+
+      <div class="project-grid">
+        @for (project of projects; track project.slug; let index = $index) {
+          <article class="card project-card reveal visible" [class.featured]="project.featured">
+            @if (project.image) {
+              <div class="project-preview">
+                <img [src]="project.image" [alt]="'Vista previa de ' + project.title">
+              </div>
+            } @else {
+              <div class="project-preview" [class]="'project-preview preview-' + project.preview" role="img" [attr.aria-label]="'Maqueta de ejemplo de ' + project.title">
+                <div class="preview-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="preview-canvas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                <span class="preview-label">VISTA DE EJEMPLO</span>
+              </div>
+            }
+
+            <div class="project-copy">
+              <div class="project-top">
+                <span class="pill">{{ project.status }}</span>
+                <span class="project-glyph" aria-hidden="true">0{{ index + 1 }}</span>
+              </div>
+              <h3 class="project-title">{{ project.title }}</h3>
+              <p>{{ project.description }}</p>
+              <div class="tag-list">
+                @for (item of project.stack; track item) {
+                  <span class="tag">{{ item }}</span>
+                }
+              </div>
+              <dl class="project-proof">
+                <dt>DECISIÓN</dt>
+                <dd>{{ project.decision }}</dd>
+              </dl>
+              @if (project.url) {
+                <a class="project-link" [href]="project.url" target="_blank" rel="noreferrer">
+                  <span>ABRIR REPOSITORIO</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              } @else {
+                <span class="project-link project-link-disabled">REPOSITORIO POR AÑADIR</span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+
+      @if (projects.length === 0) {
+        <div class="project-state visible">
+          <div>
+            <strong>SIN PROYECTOS</strong>
+            <p>Añade el primer caso al bloque projects en app.ts para publicarlo aquí.</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="section scene scene-stackboard">
+    <div class="container">
+      <div class="section-heading reveal visible">
+        <p class="eyebrow">STACK TECNOLÓGICO</p>
+        <h2>Tecnologías que uso</h2>
+      </div>
+      <div class="stack-board reveal visible">
+        <article class="stack-group"><h3>Lenguajes</h3><p>Java · PHP<br>JavaScript · TypeScript</p></article>
+        <article class="stack-group"><h3>Frontend</h3><p>Angular</p></article>
+        <article class="stack-group"><h3>Backend</h3><p>Spring Boot<br>REST APIs · PHP</p></article>
+        <article class="stack-group"><h3>Mobile</h3><p>Android SDK</p></article>
+        <article class="stack-group"><h3>Datos</h3><p>PostgreSQL · MySQL<br>MongoDB</p></article>
+        <article class="stack-group"><h3>Infraestructura</h3><p>Docker · Ubuntu</p></article>
+        <article class="stack-group"><h3>Herramientas</h3><p>Git · GitHub<br>Postman · Swagger</p></article>
+        <article class="stack-group"><h3>Metodologías</h3><p>Scrum · Desarrollo ágil</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section scene scene-education" id="perfil">
+    <div class="container grid-1-2">
+      <div class="reveal visible">
+        <p class="eyebrow">FORMACIÓN</p>
+        <h2>Formación</h2>
+        <ul class="education-list education-list-spaced">
+          <li><strong>Ingeniería de Sistemas</strong><span>Universidad Nacional Abierta y a Distancia · UNAD · 2024 — Actualidad</span></li>
+          <li><strong>Técnico en Programación de Software</strong><span>Servicio Nacional de Aprendizaje · SENA · 2021</span></li>
+        </ul>
+      </div>
+      <div class="reveal visible">
+        <p class="eyebrow">FORMA DE TRABAJAR</p>
+        <div class="principle-box">
+          <p>Antes de empezar a desarrollar intento entender bien qué se necesita y cómo encaja con lo que ya existe. Prefiero soluciones fáciles de mantener y sin complejidad innecesaria.</p>
+        </div>
+        <p class="lead principle-lead">Estudiante de Ingeniería de Sistemas y desarrollador con experiencia práctica en productos web, móviles y soluciones internas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section scene scene-contact" id="contacto">
+    <div class="container contact-box reveal visible">
+      <div class="contact-intro">
+        <p class="eyebrow">CONTACTO PROFESIONAL</p>
+        <h2>Contacto</h2>
+        <p class="lead">Si quieres conocer más sobre mi experiencia o hablar conmigo sobre desarrollo de software, puedes escribirme por correo o encontrarme en LinkedIn.</p>
+      </div>
+      <div class="contact-actions">
+        <p class="contact-status-line">Disponible para nuevas oportunidades</p>
+        <a class="contact-mail" id="email-link" [href]="'mailto:' + email">{{ email }}</a>
+        <div class="contact-tools">
+          <button class="btn btn-secondary" type="button" (click)="copyEmail()">Copiar correo</button>
+          <span class="contact-ref">LinkedIn · Mateo Celis Silva</span>
+        </div>
+        <p class="copy-status" aria-live="polite">{{ copyStatus() }}</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pagefoot">
+  <div class="container row-between">
+    <span>© {{ year }} Mateo Silva</span>
+    <span class="meta">Desarrollador de Software · Full Stack Developer</span>
+  </div>
+</footer>
