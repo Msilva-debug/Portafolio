@@ -13,7 +13,7 @@
       <a href="#contacto">Contacto</a>
     </nav>
 
-    <a class="btn btn-secondary" [href]="'mailto:' + email">Enviar correo</a>
+    <a class="btn btn-secondary" [href]="resumeUrl" download>Descargar hoja de vida</a>
   </div>
 </header>
 
@@ -31,7 +31,7 @@
           <a class="btn btn-primary" href="#experiencia">Ver experiencia</a>
           <a class="btn btn-ghost btn-arrow" href="#proyectos">Revisar proyectos</a>
         </div>
-        <p class="availability">3+ años · Web · Mobile · Liderazgo técnico</p>
+        <p class="availability">4+ años · Web · Mobile · Liderazgo técnico</p>
       </div>
 
       <div
@@ -214,8 +214,8 @@
   </section>
 
   <section class="section scene scene-education" id="perfil">
-    <div class="container grid-1-2">
-      <div class="reveal visible">
+    <div class="container education-layout">
+      <div class="education-column reveal visible">
         <p class="eyebrow">FORMACIÓN</p>
         <h2>Formación</h2>
         <ul class="education-list education-list-spaced">
@@ -223,9 +223,10 @@
           <li><strong>Técnico en Programación de Software</strong><span>Servicio Nacional de Aprendizaje · SENA · 2021</span></li>
         </ul>
       </div>
-      <div class="reveal visible">
+      <div class="work-column reveal visible">
         <p class="eyebrow">FORMA DE TRABAJAR</p>
         <div class="principle-box">
+          <span class="principle-status">[ SISTEMA DE TRABAJO · ACTIVO ]</span>
           <p>Antes de empezar a desarrollar intento entender bien qué se necesita y cómo encaja con lo que ya existe. Prefiero soluciones fáciles de mantener y sin complejidad innecesaria.</p>
         </div>
         <p class="lead principle-lead">Estudiante de Ingeniería de Sistemas y desarrollador con experiencia práctica en productos web, móviles y soluciones internas.</p>
@@ -245,7 +246,7 @@
         <a class="contact-mail" id="email-link" [href]="'mailto:' + email">{{ email }}</a>
         <div class="contact-tools">
           <button class="btn btn-secondary" type="button" (click)="copyEmail()">Copiar correo</button>
-          <span class="contact-ref">LinkedIn · Mateo Celis Silva</span>
+          <a href="https://www.linkedin.com/in/mateo-celis-silva" target="_blank" class="contact-ref">LinkedIn · <strong class="underline">Mateo Celis Silva</strong></a>
         </div>
         <p class="copy-status" aria-live="polite">{{ copyStatus() }}</p>
       </div>

@@ -30,7 +30,8 @@ export class App {
 
   protected readonly email = 'mateocelis1550@gmail.com';
   protected readonly year = new Date().getFullYear();
-  protected readonly profileImage = '';
+  protected readonly profileImage = 'MateoCelis.jpeg';
+  protected readonly resumeUrl = 'CV-Mateo.Celis.pdf';
   protected readonly isMotionPaused = signal(false);
   protected readonly copyStatus = signal('');
 
