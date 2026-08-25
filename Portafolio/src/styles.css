@@ -140,7 +140,7 @@
     .profile-badge { position: absolute; left: -18px; bottom: 72px; padding: 10px 12px; background: var(--accent); color: var(--bg); border: 1px solid var(--fg); box-shadow: 5px 5px 0 var(--bg); font-family: var(--font-mono); font-size: 11px; letter-spacing: .07em; }
     .orbital { position: relative; aspect-ratio: 1; width: min(100%, 520px); margin-inline: auto; perspective: 900px; cursor: grab; user-select: none; }
     .orbital:active { cursor: grabbing; }
-    .orbital-stage { position: absolute; inset: 8%; transform: rotateX(-3.07552deg) rotateY(-3.16415deg); transform-style: preserve-3d; transition: transform .25s ease-out; }
+    .orbital-stage { position: absolute; inset: 8%; transform-style: preserve-3d; transition: transform .25s ease-out; }
     .orbit { position: absolute; z-index: 1; inset: 12%; border: 1px solid var(--border); border-radius: 4px; transform-style: preserve-3d; animation: orbit-spin 18s linear infinite; }
     .orbit:nth-child(2) { inset: 25%; transform: rotateX(68deg) rotateZ(24deg); animation-duration: 12s; animation-direction: reverse; }
     .orbit:nth-child(3) { inset: 2%; transform: rotateY(62deg) rotateZ(-18deg); animation-duration: 24s; }
@@ -154,20 +154,21 @@
     .motion-toggle:hover { border-color: var(--fg); box-shadow: 3px 3px 0 var(--border); }
     .motion-paused .orbit, .motion-paused .node, .motion-paused .availability::before { animation-play-state: paused; }
     .orbital-photo { cursor: default; width: min(100%, 550px); overflow: clip; }
-    .orbital-photo .orbital-stage { inset: 1%; }
-    .orbital-photo .orbit { border-color: color-mix(in oklch, var(--fg) 24%, transparent); border-radius: 50%; animation-duration: 28s; }
-    .orbital-photo .orbit::before { content: ''; position: absolute; width: 8px; height: 8px; top: -4px; left: 50%; background: var(--fg); box-shadow: 0 0 0 5px var(--fg-soft); }
-    .orbital-photo .orbit:nth-child(2) { inset: 15%; animation-duration: 20s; }
-    .orbital-photo .orbit:nth-child(3) { inset: 3%; animation-duration: 36s; }
-    .orbital-photo .profile-visual { position: absolute; z-index: 3; width: clamp(188px, 36%, 236px); left: 50%; top: 50%; margin: 0; padding: 11px 11px 14px; transform: translate(-50%, -50%) translateZ(52px); box-shadow: 11px 11px 0 var(--bg); }
+    .orbital-photo .orbital-stage { inset: 5%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(94px, 30%); gap: clamp(10px, 3vw, 18px); align-items: center; padding: clamp(12px, 3vw, 20px); overflow: hidden; background: color-mix(in oklch, var(--surface) 88%, transparent); border: 1px solid var(--border); clip-path: polygon(0 16px, 16px 16px, 16px 0, calc(100% - 16px) 0, calc(100% - 16px) 16px, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 16px calc(100% - 16px), 0 calc(100% - 16px)); transform: none; }
+    .orbital-photo .orbit { display: none; }
+    .orbital-photo .profile-visual { position: relative; z-index: 3; width: 100%; height: auto; left: auto; top: auto; margin: 0; padding: 10px 10px 12px; transform: none; box-shadow: 8px 8px 0 var(--bg); }
     .orbital-photo .profile-visual::before { border-color: var(--fg); }
     .orbital-photo .profile-photo { aspect-ratio: 4 / 5; }
-    .orbital-photo .profile-caption { margin-top: 11px; font-size: 10px; }
-    .orbital-photo .profile-badge { left: -18px; bottom: 54px; padding: 8px 10px; font-size: 10px; background: var(--surface); color: var(--fg); border-color: var(--fg); }
-    .orbital-photo .node { --node-z: 88px; z-index: 5; min-width: 128px; padding: 10px 14px; color: var(--fg); background: color-mix(in oklch, var(--surface) 92%, transparent); border-color: var(--border); box-shadow: 5px 5px 0 var(--bg); font-size: 11px; white-space: nowrap; animation: tech-float 5.5s ease-in-out infinite; }
-    .orbital-photo .node-a { top: 7%; right: 6%; }
-    .orbital-photo .node-b { --node-x: 0px; --node-y: 14px; bottom: 15%; left: 8%; }
-    .orbital-photo .node-c { --node-x: 8px; --node-y: -41px; right: 5%; bottom: 7%; }
+    .orbital-photo .profile-caption { margin-top: 10px; font-size: 10px; }
+    .orbital-photo .profile-badge { position: static; display: inline-block; margin-top: 10px; padding: 6px 8px; font-size: 10px; background: var(--surface); color: var(--fg); border-color: var(--fg); box-shadow: 3px 3px 0 var(--bg); }
+    .loadout-panel { min-width: 0; display: grid; gap: 10px; align-content: center; }
+    .loadout-label { color: var(--accent); font: 600 10px/1.4 var(--font-mono); letter-spacing: .08em; }
+    .loadout-meter { width: 100%; height: 5px; margin-top: 4px; background: var(--border); box-shadow: inset 68px 0 0 var(--accent); }
+    .loadout-status { color: var(--muted); font: 10px/1.4 var(--font-mono); letter-spacing: .06em; }
+    .orbital-photo .node { position: relative; inset: auto; z-index: 4; width: 100%; min-width: 0; padding: 9px 7px; color: var(--fg); background: color-mix(in oklch, var(--surface) 92%, transparent); border-color: var(--border); box-shadow: 5px 5px 0 var(--bg); font-size: 11px; white-space: nowrap; transform: none; animation: tech-float 5.2s steps(2, end) infinite; }
+    .orbital-photo .node-a { animation-delay: -.6s; }
+    .orbital-photo .node-b { animation-delay: -2.2s; }
+    .orbital-photo .node-c { animation-delay: -3.8s; }
     .orbital-photo .orbital-note { color: var(--muted); }
     .section-heading { max-width: 580px; margin-bottom: var(--gap-xl); }
     .section-lead { margin-top: 18px; }
@@ -268,6 +269,12 @@
     .reveal { opacity: 1; transform: none; }
     .motion-ready .reveal { opacity: 0; transform: translateY(14px); transition: opacity .28s cubic-bezier(.2,0,0,1), transform .28s cubic-bezier(.2,0,0,1); }
     .reveal.visible { opacity: 1; transform: none; }
+    .motion-ready .motion-item { opacity: 0; transform: translateY(12px); clip-path: inset(0 0 14px 0); transition: opacity .28s cubic-bezier(.2,0,0,1) var(--motion-delay, 0ms), transform .28s cubic-bezier(.2,0,0,1) var(--motion-delay, 0ms), clip-path .28s steps(4, end) var(--motion-delay, 0ms); }
+    .motion-item.visible { opacity: 1; transform: none; clip-path: inset(0); }
+    .motion-item.visible.service:hover, .motion-item.visible.project-card:hover { transform: translate(-3px, -3px); }
+    .motion-item.visible.stack-group:hover { transform: translate(-2px, -2px); }
+    .motion-item.visible.timeline-item:hover, .education-list li.motion-item.visible:hover { transform: translateX(4px); }
+    .motion-item.visible.contact-actions:focus-within { transform: translate(-2px, -2px); }
     @keyframes orbit-spin { to { rotate: 1turn; } }
     @keyframes float { 50% { transform: translate3d(var(--node-x), calc(var(--node-y) - 10px), var(--node-z)); } }
     @keyframes tech-float { 50% { transform: translate3d(var(--node-x), calc(var(--node-y) - 6px), var(--node-z)); } }
@@ -303,16 +310,15 @@
       .hero-actions { margin-top: 24px; }
       .hero-cta { width: 100%; }
       .hero-cta .btn { width: 100%; }
-      .orbital-photo { aspect-ratio: 1; width: min(100%, 340px); margin-top: 8px; margin-left: auto; margin-right: auto; overflow: visible; cursor: default; }
-      .orbital-photo .orbital-stage { position: absolute; inset: 3% 4% 11%; display: block; transform: rotateX(-2deg) rotateY(-2deg) !important; perspective: 900px; }
-      .orbital-photo .orbit { display: none; }
-      .orbital-photo .profile-visual { position: absolute; z-index: 3; width: min(190px, 58vw); left: 50%; top: 49%; margin: 0; padding: 9px 9px 11px; transform: translate(-50%, -50%) translateZ(42px); box-shadow: 8px 8px 0 var(--bg); }
-      .orbital-photo .profile-badge { left: 50%; bottom: 42px; transform: translateX(-50%); width: max-content; max-width: calc(100% + 24px); padding: 7px 8px; font-size: 9px; letter-spacing: .05em; }
+      .orbital-photo { aspect-ratio: 1; width: min(100%, 340px); margin-top: 8px; margin-left: auto; margin-right: auto; overflow: clip; cursor: default; }
+      .orbital-photo .orbital-stage { inset: 4%; grid-template-columns: minmax(0, 1fr) minmax(86px, 30%); gap: 10px; padding: 12px; transform: none !important; }
+      .orbital-photo .profile-visual { padding: 8px 8px 10px; box-shadow: 6px 6px 0 var(--bg); }
+      .orbital-photo .profile-badge { margin-top: 8px; padding: 6px 7px; font-size: 8px; letter-spacing: .05em; }
       .orbital-photo .profile-caption { gap: 8px; font-size: 8px; letter-spacing: .03em; }
-      .orbital-photo .node { --node-z: 64px; position: absolute; z-index: 5; min-width: 96px; width: max-content; max-width: 112px; padding: 7px 8px; font-size: 8px; letter-spacing: .04em; line-height: 1.2; box-shadow: 3px 3px 0 var(--bg); animation: tech-float 5.5s ease-in-out infinite; }
-      .orbital-photo .node-a { --node-x: 0px; --node-y: 0px; top: 7%; right: 2%; }
-      .orbital-photo .node-b { --node-x: 0px; --node-y: 0px; bottom: 5%; left: 1%; }
-      .orbital-photo .node-c { --node-x: 0px; --node-y: 0px; right: 1%; bottom: 24%; }
+      .loadout-panel { gap: 8px; }
+      .loadout-label, .loadout-status { font-size: 8px; }
+      .loadout-meter { height: 4px; box-shadow: inset 48px 0 0 var(--accent); }
+      .orbital-photo .node { padding: 7px 5px; font-size: 8px; letter-spacing: .035em; box-shadow: 3px 3px 0 var(--bg); }
       .motion-toggle { right: 0; bottom: -4px; min-height: 38px; padding: 7px 9px; font-size: 10px; }
       .node { min-width: 70px; padding: 7px 9px; font-size: 10px; }
       .contact-actions { padding: 22px; }
@@ -332,5 +338,5 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-      .motion-ready .reveal { opacity: 1; transform: none; }
+      .motion-ready .reveal, .motion-ready .motion-item { opacity: 1; transform: none; clip-path: none; }
     }

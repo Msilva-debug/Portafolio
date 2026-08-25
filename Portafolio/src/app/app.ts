@@ -1,32 +1,21 @@
-import { Component, ElementRef, HostBinding, ViewChild, signal } from '@angular/core';
-
-type PreviewKind = 'dashboard' | 'api' | 'web' | 'data';
-
-interface Project {
-  slug: string;
-  title: string;
-  type: string[];
-  description: string;
-  stack: string[];
-  decision: string;
-  preview: PreviewKind;
-  image: string;
-  featured: boolean;
-  url: string;
-  status: string;
-}
+import { AfterViewInit, Component, ElementRef, HostBinding, OnDestroy, ViewChild, signal } from '@angular/core';
+import { ProjectCardComponent } from './project-card/project-card';
+import { Project } from './project.model';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [ProjectCardComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
-  private readonly orbitalRestTransform = 'rotateX(-3.07552deg) rotateY(-3.16415deg)';
+export class App implements AfterViewInit, OnDestroy {
+  private readonly orbitalRestTransform = '';
+  private observer?: IntersectionObserver;
 
   @HostBinding('class.motion-ready') protected readonly motionReady = true;
   @ViewChild('orbitalStage') private orbitalStage?: ElementRef<HTMLElement>;
+
+  constructor(private readonly host: ElementRef<HTMLElement>) {}
 
   protected readonly email = 'mateocelis1550@gmail.com';
   protected readonly year = new Date().getFullYear();
@@ -63,6 +52,33 @@ export class App {
       status: 'POR DOCUMENTAR',
     },
   ];
+
+  ngAfterViewInit(): void {
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.host.nativeElement.querySelectorAll('.reveal, .motion-item').forEach((element) => {
+        element.classList.add('visible');
+      });
+      return;
+    }
+
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add('visible');
+        this.observer?.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
+
+    this.registerRevealItems();
+    this.registerMotionItems();
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+  }
 
   protected onOrbitalMove(event: PointerEvent): void {
     if (this.isMotionPaused() || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -104,5 +120,23 @@ export class App {
     if (stage) {
       stage.style.transform = value;
     }
+  }
+
+  private registerRevealItems(): void {
+    this.host.nativeElement.querySelectorAll<HTMLElement>('.reveal').forEach((element) => {
+      element.classList.remove('visible');
+      this.observer?.observe(element);
+    });
+  }
+
+  private registerMotionItems(): void {
+    const selector = '.service, .timeline-item, .stack-group, .education-list li, .project-card, .contact-actions';
+
+    this.host.nativeElement.querySelectorAll<HTMLElement>(selector).forEach((element, index) => {
+      element.classList.add('motion-item');
+      element.classList.remove('visible');
+      element.style.setProperty('--motion-delay', `${(index % 6) * 45}ms`);
+      this.observer?.observe(element);
+    });
   }
 }

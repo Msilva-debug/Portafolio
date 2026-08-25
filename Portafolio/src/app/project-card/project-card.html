@@ -1,0 +1,46 @@
+@let currentProject = project();
+
+<article class="card project-card reveal visible" [class.featured]="currentProject.featured">
+  @if (currentProject.image) {
+    <div class="project-preview">
+      <img [src]="currentProject.image" [alt]="'Vista previa de ' + currentProject.title">
+    </div>
+  } @else {
+    <div
+      class="project-preview"
+      [class]="'project-preview preview-' + currentProject.preview"
+      role="img"
+      [attr.aria-label]="'Maqueta de ejemplo de ' + currentProject.title"
+    >
+      <div class="preview-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="preview-canvas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="preview-label">VISTA DE EJEMPLO</span>
+    </div>
+  }
+
+  <div class="project-copy">
+    <div class="project-top">
+      <span class="pill">{{ currentProject.status }}</span>
+      <span class="project-glyph" aria-hidden="true">0{{ index() + 1 }}</span>
+    </div>
+    <h3 class="project-title">{{ currentProject.title }}</h3>
+    <p>{{ currentProject.description }}</p>
+    <div class="tag-list">
+      @for (item of currentProject.stack; track item) {
+        <span class="tag">{{ item }}</span>
+      }
+    </div>
+    <dl class="project-proof">
+      <dt>DECISIÓN</dt>
+      <dd>{{ currentProject.decision }}</dd>
+    </dl>
+    @if (currentProject.url) {
+      <a class="project-link" [href]="currentProject.url" target="_blank" rel="noreferrer">
+        <span>ABRIR REPOSITORIO</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    } @else {
+      <span class="project-link project-link-disabled">REPOSITORIO POR AÑADIR</span>
+    }
+  </div>
+</article>

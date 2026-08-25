@@ -13,7 +13,15 @@
       <a href="#contacto">Contacto</a>
     </nav>
 
-    <a class="btn btn-secondary" [href]="resumeUrl" download>Descargar hoja de vida</a>
+    <a
+      class="btn btn-secondary nav-resume-cta"
+      [href]="resumeUrl"
+      download
+      aria-label="Descargar hoja de vida de Mateo Silva"
+      title="Descargar hoja de vida"
+    >
+      Descargar hoja de vida
+    </a>
   </div>
 </header>
 
@@ -38,16 +46,12 @@
         class="orbital orbital-photo reveal visible"
         id="orbital"
         role="group"
-        aria-label="Retrato de Mateo Silva rodeado por sus tecnologías principales"
+        aria-label="Perfil de Mateo Silva con su loadout tecnológico"
         [class.motion-paused]="isMotionPaused()"
         (pointermove)="onOrbitalMove($event)"
         (pointerleave)="resetOrbital()"
       >
         <div class="orbital-stage" #orbitalStage>
-          <div class="orbit" aria-hidden="true"></div>
-          <div class="orbit" aria-hidden="true"></div>
-          <div class="orbit" aria-hidden="true"></div>
-
           <div class="profile-visual">
             <div class="profile-photo" aria-live="polite">
               @if (profileImage) {
@@ -66,12 +70,17 @@
             </div>
           </div>
 
-          <span class="node node-a">ANGULAR</span>
-          <span class="node node-b">SPRING BOOT</span>
-          <span class="node node-c">DOCKER</span>
+          <div class="loadout-panel" aria-label="Tecnologías principales">
+            <span class="loadout-label" aria-hidden="true">[ LOADOUT ]</span>
+            <span class="node node-a">ANGULAR</span>
+            <span class="node node-b">SPRING BOOT</span>
+            <span class="node node-c">DOCKER</span>
+            <span class="loadout-meter" aria-hidden="true"></span>
+            <span class="loadout-status">ESTADO: LISTO</span>
+          </div>
         </div>
 
-        <span class="orbital-note meta">Mueve el cursor para explorar el stack</span>
+        <span class="orbital-note meta">Mueve el cursor para inclinar el loadout</span>
         <button
           class="motion-toggle"
           type="button"
@@ -141,45 +150,7 @@
 
       <div class="project-grid">
         @for (project of projects; track project.slug; let index = $index) {
-          <article class="card project-card reveal visible" [class.featured]="project.featured">
-            @if (project.image) {
-              <div class="project-preview">
-                <img [src]="project.image" [alt]="'Vista previa de ' + project.title">
-              </div>
-            } @else {
-              <div class="project-preview" [class]="'project-preview preview-' + project.preview" role="img" [attr.aria-label]="'Maqueta de ejemplo de ' + project.title">
-                <div class="preview-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-                <div class="preview-canvas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-                <span class="preview-label">VISTA DE EJEMPLO</span>
-              </div>
-            }
-
-            <div class="project-copy">
-              <div class="project-top">
-                <span class="pill">{{ project.status }}</span>
-                <span class="project-glyph" aria-hidden="true">0{{ index + 1 }}</span>
-              </div>
-              <h3 class="project-title">{{ project.title }}</h3>
-              <p>{{ project.description }}</p>
-              <div class="tag-list">
-                @for (item of project.stack; track item) {
-                  <span class="tag">{{ item }}</span>
-                }
-              </div>
-              <dl class="project-proof">
-                <dt>DECISIÓN</dt>
-                <dd>{{ project.decision }}</dd>
-              </dl>
-              @if (project.url) {
-                <a class="project-link" [href]="project.url" target="_blank" rel="noreferrer">
-                  <span>ABRIR REPOSITORIO</span>
-                  <span aria-hidden="true">↗</span>
-                </a>
-              } @else {
-                <span class="project-link project-link-disabled">REPOSITORIO POR AÑADIR</span>
-              }
-            </div>
-          </article>
+          <app-project-card [project]="project" [index]="index" />
         }
       </div>
 
