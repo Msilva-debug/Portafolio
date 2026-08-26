@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "docker:build": "docker build -t portafolio:latest .",
+    "docker:run": "docker run --rm -p 8080:80 portafolio:latest",
     "deploy:s3": "bash scripts/deploy-s3.sh",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

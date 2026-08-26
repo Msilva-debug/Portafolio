@@ -1,16 +1,17 @@
 @let currentProject = project();
+@let projectScreenshot = screenshot(currentProject);
 
-<article class="card project-card reveal visible" [class.featured]="currentProject.featured">
-  @if (currentProject.image) {
+<article class="card project-card reveal visible" [class.featured]="index() === 0">
+  @if (projectScreenshot) {
     <div class="project-preview">
-      <img [src]="currentProject.image" [alt]="'Vista previa de ' + currentProject.title">
+      <img [src]="projectScreenshot" [alt]="'Vista previa de ' + currentProject.name">
     </div>
   } @else {
     <div
       class="project-preview"
-      [class]="'project-preview preview-' + currentProject.preview"
+      [class]="'project-preview preview-' + previewKind(currentProject)"
       role="img"
-      [attr.aria-label]="'Maqueta de ejemplo de ' + currentProject.title"
+      [attr.aria-label]="'Maqueta de ejemplo de ' + currentProject.name"
     >
       <div class="preview-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
       <div class="preview-canvas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
@@ -20,22 +21,22 @@
 
   <div class="project-copy">
     <div class="project-top">
-      <span class="pill">{{ currentProject.status }}</span>
+      <span class="pill">{{ status(currentProject) }}</span>
       <span class="project-glyph" aria-hidden="true">0{{ index() + 1 }}</span>
     </div>
-    <h3 class="project-title">{{ currentProject.title }}</h3>
-    <p>{{ currentProject.description }}</p>
+    <h3 class="project-title">{{ currentProject.name }}</h3>
+    <p>{{ description(currentProject) }}</p>
     <div class="tag-list">
-      @for (item of currentProject.stack; track item) {
+      @for (item of technologyTags(currentProject); track item) {
         <span class="tag">{{ item }}</span>
       }
     </div>
     <dl class="project-proof">
-      <dt>DECISIÓN</dt>
-      <dd>{{ currentProject.decision }}</dd>
+      <dt>DETALLE</dt>
+      <dd>{{ detail(currentProject) }}</dd>
     </dl>
-    @if (currentProject.url) {
-      <a class="project-link" [href]="currentProject.url" target="_blank" rel="noreferrer">
+    @if (currentProject.repository) {
+      <a class="project-link" [href]="currentProject.repository" target="_blank" rel="noreferrer">
         <span>ABRIR REPOSITORIO</span>
         <span aria-hidden="true">↗</span>
       </a>

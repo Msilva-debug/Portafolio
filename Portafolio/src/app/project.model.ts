@@ -1,15 +1,25 @@
-export type PreviewKind = 'dashboard' | 'api' | 'web' | 'data';
+export interface ProjectTechnologies {
+  frontend: string[];
+  backend: string[];
+  database: string[];
+  mobile: string[];
+  infrastructure: string[];
+  tools: string[];
+}
 
 export interface Project {
   slug: string;
-  title: string;
-  type: string[];
+  name: string;
+  shortDescription: string;
   description: string;
-  stack: string[];
-  decision: string;
-  preview: PreviewKind;
-  image: string;
-  featured: boolean;
-  url: string;
-  status: string;
+  type: string[];
+  technologies: ProjectTechnologies;
+  features: string[];
+  technicalHighlights: string[];
+  architecture: string;
+  role: string;
+  repository: string;
+  screenshots: string[];
+  status: 'documented' | string;
+  generatedAt: string;
 }
