@@ -1,0 +1,129 @@
+@let currentProject = project();
+@let projectSummary = summary();
+
+<dialog class="project-dialog" #projectDialog [attr.aria-labelledby]="'project-dialog-title-' + currentProject.slug">
+  <div class="project-dialog-shell">
+    <header class="project-dialog-head">
+      <div>
+        <span class="meta">FICHA TÉCNICA</span>
+        <h3 [id]="'project-dialog-title-' + currentProject.slug">{{ currentProject.name }}</h3>
+      </div>
+      <button class="dialog-close" type="button" aria-label="Cerrar ficha técnica" (click)="close()">ESC</button>
+    </header>
+
+    <div class="project-details-body">
+      @if (currentProject.description && currentProject.description !== projectSummary) {
+        <section class="project-detail-block wide">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+              <path d="M6 3h8l4 4v14H6z"></path>
+              <path d="M14 3v5h5M9 13h6M9 17h6"></path>
+            </svg>
+            <span>Descripción</span>
+          </h4>
+          <p>{{ currentProject.description }}</p>
+        </section>
+      }
+
+      @if (currentProject.architecture) {
+        <section class="project-detail-block wide">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+              <rect x="3" y="4" width="6" height="5"></rect>
+              <rect x="15" y="15" width="6" height="5"></rect>
+              <path d="M9 6.5h4a4 4 0 0 1 4 4V15"></path>
+            </svg>
+            <span>Arquitectura</span>
+          </h4>
+          <p>{{ currentProject.architecture }}</p>
+        </section>
+      }
+
+      @if (technologyGroups(currentProject).length > 0) {
+        <section class="project-detail-block wide">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+              <path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"></path>
+            </svg>
+            <span>Tecnologías</span>
+          </h4>
+          <div class="technology-groups">
+            @for (group of technologyGroups(currentProject); track group.label) {
+              <div class="technology-group">
+                <strong>{{ group.label }}</strong>
+                <span>{{ group.items.join(' · ') }}</span>
+              </div>
+            }
+          </div>
+        </section>
+      }
+
+      @if (currentProject.features.length > 0) {
+        <section class="project-detail-block">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+              <path d="m4 7 2 2 4-4M12 7h8M4 14l2 2 4-4M12 14h8"></path>
+            </svg>
+            <span>Funcionalidades</span>
+          </h4>
+          <ul class="project-detail-list">
+            @for (item of currentProject.features; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </section>
+      }
+
+      @if (currentProject.technicalHighlights.length > 0) {
+        <section class="project-detail-block">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+              <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"></path>
+              <circle cx="12" cy="12" r="4"></circle>
+            </svg>
+            <span>Destacados técnicos</span>
+          </h4>
+          <ul class="project-detail-list">
+            @for (item of currentProject.technicalHighlights; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </section>
+      }
+
+      @if (currentProject.role) {
+        <section class="project-detail-block">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"></circle>
+              <path d="M4 21a8 8 0 0 1 16 0"></path>
+            </svg>
+            <span>Rol</span>
+          </h4>
+          <p>{{ currentProject.role }}</p>
+        </section>
+      }
+
+      @if (currentProject.screenshots.length > 1) {
+        <section class="project-detail-block wide">
+          <h4>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="16"></rect>
+              <circle cx="9" cy="10" r="2"></circle>
+              <path d="m4 18 5-5 4 4 3-3 5 5"></path>
+            </svg>
+            <span>Galería</span>
+          </h4>
+          <div class="project-gallery">
+            @for (image of currentProject.screenshots; track image; let imageIndex = $index) {
+              <figure>
+                <img [src]="image" [alt]="'Captura ' + (imageIndex + 1) + ' de ' + currentProject.name" loading="lazy">
+                <figcaption>{{ imageName(image) }}</figcaption>
+              </figure>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  </div>
+</dialog>

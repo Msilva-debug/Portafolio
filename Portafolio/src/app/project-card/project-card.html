@@ -1,23 +1,19 @@
 @let currentProject = project();
 @let projectScreenshot = screenshot(currentProject);
 
-<article class="card project-card reveal visible" [class.featured]="index() === 0">
-  @if (projectScreenshot) {
-    <div class="project-preview">
-      <img [src]="projectScreenshot" [alt]="'Vista previa de ' + currentProject.name">
+<article class="card project-card reveal visible" role="listitem">
+  <div class="project-media-viewer">
+    <div class="project-media-stage">
+      @if (projectScreenshot) {
+        <div class="project-preview" [class.project-preview-icon]="isIconPreview(projectScreenshot)">
+          <img [src]="projectScreenshot" [alt]="'Vista principal del proyecto ' + currentProject.name" loading="lazy">
+          <span class="preview-label">VISTA 01</span>
+        </div>
+      } @else {
+        <ng-container *ngTemplateOutlet="previewTemplate; context: { project: currentProject, className: 'project-preview', label: 'VISTA 01' }" />
+      }
     </div>
-  } @else {
-    <div
-      class="project-preview"
-      [class]="'project-preview preview-' + previewKind(currentProject)"
-      role="img"
-      [attr.aria-label]="'Maqueta de ejemplo de ' + currentProject.name"
-    >
-      <div class="preview-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
-      <div class="preview-canvas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <span class="preview-label">VISTA DE EJEMPLO</span>
-    </div>
-  }
+  </div>
 
   <div class="project-copy">
     <div class="project-top">
@@ -26,22 +22,34 @@
     </div>
     <h3 class="project-title">{{ currentProject.name }}</h3>
     <p>{{ description(currentProject) }}</p>
-    <div class="tag-list">
+    <div class="meta">{{ typeLabel(currentProject) }}</div>
+    <div class="tag-list project-types">
       @for (item of technologyTags(currentProject); track item) {
         <span class="tag">{{ item }}</span>
       }
     </div>
-    <dl class="project-proof">
-      <dt>DETALLE</dt>
-      <dd>{{ detail(currentProject) }}</dd>
-    </dl>
-    @if (currentProject.repository) {
-      <a class="project-link" [href]="currentProject.repository" target="_blank" rel="noreferrer">
-        <span>ABRIR REPOSITORIO</span>
-        <span aria-hidden="true">↗</span>
-      </a>
-    } @else {
-      <span class="project-link project-link-disabled">REPOSITORIO POR AÑADIR</span>
+    @if (currentProject.generatedAt) {
+      <div class="project-generated">{{ generatedLabel(currentProject.generatedAt) }}</div>
     }
+    <div class="project-actions">
+      <button class="btn btn-primary" type="button" (click)="openDialog()">Ver ficha técnica</button>
+      @if (currentProject.repository) {
+        <a class="btn btn-secondary" [href]="currentProject.repository" target="_blank" rel="noreferrer">Repositorio ↗</a>
+      }
+    </div>
   </div>
 </article>
+
+<app-project-detail-dialog [project]="currentProject" [summary]="description(currentProject)" />
+
+<ng-template #previewTemplate let-project="project" let-className="className" let-label="label">
+  <div
+    [class]="className + ' preview-' + previewKind(project)"
+    role="img"
+    [attr.aria-label]="'Imagen de prueba para ' + project.name"
+  >
+    <div class="preview-chrome" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="preview-canvas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <span class="preview-label">{{ label }}</span>
+  </div>
+</ng-template>

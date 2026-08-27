@@ -140,18 +140,57 @@
     <div class="container">
       <div class="section-heading reveal visible">
         <p class="eyebrow">PROYECTOS</p>
-        <h2>Casos que pronto contarán el proceso completo.</h2>
-        <p class="lead section-lead">Añade capturas, responsabilidades y resultados cuando estén listos para publicar.</p>
+        <h2>Productos construidos de extremo a extremo.</h2>
+        <p class="lead section-lead">Cada caso reúne contexto, arquitectura, funcionalidades, decisiones técnicas y evidencia visual.</p>
       </div>
 
       <div class="project-toolbar reveal visible">
         <span class="meta" aria-live="polite">{{ projects.length }} {{ projects.length === 1 ? 'proyecto' : 'proyectos' }}</span>
+        <div class="project-carousel-controls" aria-label="Controles del carrusel">
+          <button
+            class="carousel-control"
+            type="button"
+            aria-label="Proyecto anterior"
+            [disabled]="projects.length <= 1"
+            (click)="previousProject()"
+          >
+            ←
+          </button>
+          <span class="project-position" aria-live="polite">{{ projectPosition() }}</span>
+          <button
+            class="carousel-control"
+            type="button"
+            aria-label="Proyecto siguiente"
+            [disabled]="projects.length <= 1"
+            (click)="nextProject()"
+          >
+            →
+          </button>
+          <button
+            class="carousel-control"
+            type="button"
+            aria-label="Pausar reproducción automática"
+            [disabled]="projects.length <= 1"
+            [attr.aria-pressed]="isProjectAutoplayPaused()"
+            (click)="toggleProjectAutoplay()"
+          >
+            {{ isProjectAutoplayPaused() ? '▶' : 'Ⅱ' }}
+          </button>
+        </div>
       </div>
 
-      <div class="project-grid">
-        @for (project of projects; track project.slug; let index = $index) {
-          <app-project-card [project]="project" [index]="index" />
-        }
+      <div
+        class="project-carousel-viewport reveal visible"
+        #projectCarousel
+        tabindex="0"
+        aria-label="Carrusel de proyectos"
+        (scroll)="onProjectCarouselScroll()"
+      >
+        <div class="project-grid" role="list" [class.single]="projects.length <= 1">
+          @for (project of projects; track project.slug; let index = $index) {
+            <app-project-card [project]="project" [index]="index" />
+          }
+        </div>
       </div>
 
       @if (projects.length === 0) {
