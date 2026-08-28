@@ -21,6 +21,12 @@ export class ProjectDetailDialogComponent {
     this.projectDialog?.nativeElement.close();
   }
 
+  protected closeOnBackdropClick(event: MouseEvent): void {
+    if (event.target === this.projectDialog?.nativeElement) {
+      this.close();
+    }
+  }
+
   protected technologyGroups(project: Project): { label: string; items: string[] }[] {
     const labels: Record<keyof ProjectTechnologies, string> = {
       frontend: 'Frontend',

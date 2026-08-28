@@ -13,15 +13,15 @@
       <a href="#contacto">Contacto</a>
     </nav>
 
-    <a
+    <button
       class="btn btn-secondary nav-resume-cta"
-      [href]="resumeUrl"
-      download
+      type="button"
       aria-label="Descargar hoja de vida de Mateo Silva"
       title="Descargar hoja de vida"
+      (click)="downloadResume()"
     >
       Descargar hoja de vida
-    </a>
+    </button>
   </div>
 </header>
 
@@ -145,13 +145,13 @@
       </div>
 
       <div class="project-toolbar reveal visible">
-        <span class="meta" aria-live="polite">{{ projects.length }} {{ projects.length === 1 ? 'proyecto' : 'proyectos' }}</span>
+        <span class="meta" aria-live="polite">{{ projects().length }} {{ projects().length === 1 ? 'proyecto' : 'proyectos' }}</span>
         <div class="project-carousel-controls" aria-label="Controles del carrusel">
           <button
             class="carousel-control"
             type="button"
             aria-label="Proyecto anterior"
-            [disabled]="projects.length <= 1"
+            [disabled]="projects().length <= 1"
             (click)="previousProject()"
           >
             ←
@@ -161,7 +161,7 @@
             class="carousel-control"
             type="button"
             aria-label="Proyecto siguiente"
-            [disabled]="projects.length <= 1"
+            [disabled]="projects().length <= 1"
             (click)="nextProject()"
           >
             →
@@ -170,7 +170,7 @@
             class="carousel-control"
             type="button"
             aria-label="Pausar reproducción automática"
-            [disabled]="projects.length <= 1"
+            [disabled]="projects().length <= 1"
             [attr.aria-pressed]="isProjectAutoplayPaused()"
             (click)="toggleProjectAutoplay()"
           >
@@ -186,18 +186,18 @@
         aria-label="Carrusel de proyectos"
         (scroll)="onProjectCarouselScroll()"
       >
-        <div class="project-grid" role="list" [class.single]="projects.length <= 1">
-          @for (project of projects; track project.slug; let index = $index) {
+        <div class="project-grid" role="list" [class.single]="projects().length <= 1">
+          @for (project of projects(); track project.slug; let index = $index) {
             <app-project-card [project]="project" [index]="index" />
           }
         </div>
       </div>
 
-      @if (projects.length === 0) {
+      @if (projects().length === 0) {
         <div class="project-state visible">
           <div>
             <strong>SIN PROYECTOS</strong>
-            <p>Añade el primer caso al bloque projects en app.ts para publicarlo aquí.</p>
+            <p>Sube carpetas de proyectos al bucket o publica index.json para listarlos aquí.</p>
           </div>
         </div>
       }

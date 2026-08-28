@@ -33,6 +33,7 @@ yarn-error.log
 # Miscellaneous
 /.env
 /.env.local
+/public/portfolio-config.json
 /.angular/cache
 .sass-cache/
 /connect.lock

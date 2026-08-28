@@ -3,12 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "generate:portfolio-config": "node scripts/generate-portfolio-config.mjs",
+    "start": "npm run generate:portfolio-config && ng serve",
+    "prebuild": "npm run generate:portfolio-config",
     "build": "ng build",
     "docker:build": "docker build -t portafolio:latest .",
     "docker:run": "docker run --rm -p 8080:80 portafolio:latest",
     "deploy:s3": "bash scripts/deploy-s3.sh",
+    "prewatch": "npm run generate:portfolio-config",
     "watch": "ng build --watch --configuration development",
+    "pretest": "npm run generate:portfolio-config",
     "test": "ng test"
   },
   "prettier": {

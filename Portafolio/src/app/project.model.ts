@@ -19,6 +19,7 @@ export interface Project {
   architecture: string;
   role: string;
   repository: string;
+  coverImage?: string;
   screenshots: string[];
   status: 'documented' | string;
   generatedAt: string;

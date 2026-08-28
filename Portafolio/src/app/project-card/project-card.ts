@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ViewChild, input } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, input } from '@angular/core';
 import { Project } from '../project.model';
 import { ProjectDetailDialogComponent } from '../project-detail-dialog/project-detail-dialog';
 
@@ -14,9 +14,22 @@ export class ProjectCardComponent {
   readonly index = input.required<number>();
 
   @ViewChild(ProjectDetailDialogComponent) private projectDialog?: ProjectDetailDialogComponent;
+  @ViewChild('repoMenu') private repoMenu?: ElementRef<HTMLDetailsElement>;
+
+  @HostListener('document:pointerdown', ['$event'])
+  protected closeRepositoryMenuOnOutsideClick(event: PointerEvent): void {
+    const menu = this.repoMenu?.nativeElement;
+    const target = event.target;
+
+    if (!menu?.open || !(target instanceof Node) || menu.contains(target)) {
+      return;
+    }
+
+    menu.open = false;
+  }
 
   protected screenshot(project: Project): string {
-    return project.screenshots[0] ?? '';
+    return project.coverImage || project.screenshots[0] || '';
   }
 
   protected isIconPreview(path: string): boolean {
@@ -72,6 +85,41 @@ export class ProjectCardComponent {
 
   protected status(project: Project): string {
     return project.status === 'documented' ? 'DOCUMENTADO' : project.status.toUpperCase();
+  }
+
+  protected repositoryLinks(project: Project): { label: string; url: string }[] {
+    const repository = project.repository?.trim();
+
+    if (!repository) {
+      return [];
+    }
+
+    const entries = repository
+      .split(/;|\n/)
+      .map((entry) => entry.trim())
+      .filter(Boolean);
+
+    return entries
+      .map((entry, index) => {
+        const label = this.repositoryLabel(entry, index);
+        const url = this.repositoryUrl(entry);
+
+        return url ? { label, url } : null;
+      })
+      .filter((link): link is { label: string; url: string } => Boolean(link));
+  }
+
+  private repositoryLabel(entry: string, index: number): string {
+    const label = entry.match(/^(?<label>[^:]+):/)?.groups?.['label']?.trim();
+
+    return label || (index === 0 ? 'Repositorio' : `Repositorio ${index + 1}`);
+  }
+
+  private repositoryUrl(entry: string): string {
+    const markdownUrl = entry.match(/\[[^\]]*]\((?<url>https?:\/\/[^)\s]+)\)/i)?.groups?.['url'];
+    const plainUrl = entry.match(/https?:\/\/[^\s)\]]+/i)?.[0];
+
+    return (markdownUrl || plainUrl || '').replace(/[.,;]+$/, '').trim();
   }
 
   protected openDialog(): void {

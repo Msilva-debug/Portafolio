@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, OnDestroy, ViewChild, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild, signal } from '@angular/core';
 import { ProjectCardComponent } from './project-card/project-card';
 import { Project } from './project.model';
+import { PortfolioProjectsService } from './portfolio-projects.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { Project } from './project.model';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App implements AfterViewInit, OnDestroy {
+export class App implements AfterViewInit, OnDestroy, OnInit {
   private readonly orbitalRestTransform = '';
   private projectAutoplayTimer?: number;
   private carouselScrollFrame?: number;
@@ -18,72 +19,28 @@ export class App implements AfterViewInit, OnDestroy {
   @ViewChild('orbitalStage') private orbitalStage?: ElementRef<HTMLElement>;
   @ViewChild('projectCarousel') private projectCarousel?: ElementRef<HTMLElement>;
 
-  constructor(private readonly host: ElementRef<HTMLElement>) {}
+  constructor(
+    private readonly host: ElementRef<HTMLElement>,
+    private readonly portfolioProjects: PortfolioProjectsService,
+  ) {}
 
   protected readonly email = 'mateocelis1550@gmail.com';
   protected readonly year = new Date().getFullYear();
   protected readonly profileImage = 'MateoCelis.jpeg';
-  protected readonly resumeUrl = 'CV-Mateo.Celis.pdf';
+  protected readonly resumeUrl = signal('CV-Mateo.Celis.pdf');
   protected readonly isMotionPaused = signal(false);
   protected readonly isProjectAutoplayPaused = signal(false);
   protected readonly activeProjectIndex = signal(0);
   protected readonly copyStatus = signal('');
 
-  protected readonly projects: Project[] = [
-    {
-      slug: 'nutrisnap',
-      name: 'NutriSnap',
-      shortDescription: 'Aplicacion fullstack para seguimiento nutricional con registro de comidas, planes, preparaciones y recomendaciones.',
-      description: 'NutriSnap es un proyecto fullstack compuesto por un backend NestJS y un frontend Angular. La aplicacion permite crear una cuenta, iniciar sesion, consultar un dashboard nutricional, registrar comidas, revisar historial diario con notas, administrar preparaciones reutilizables y consultar recomendaciones por periodo. El backend expone una API documentada con Swagger, persiste informacion en PostgreSQL mediante TypeORM y usa servicios de IA para analisis nutricional y recomendaciones cuando la integracion externa esta disponible.',
-      type: ['fullstack', 'frontend', 'backend', 'api'],
-      technologies: {
-        frontend: ['Angular', 'TypeScript', 'RxJS', 'Tailwind CSS', 'Socket.IO Client'],
-        backend: ['NestJS', 'Node.js', 'TypeScript', 'Socket.IO', 'Passport JWT', 'Swagger'],
-        database: ['PostgreSQL', 'TypeORM'],
-        mobile: [],
-        infrastructure: ['Docker', 'Docker Compose', 'Nginx'],
-        tools: ['Angular CLI', 'Nest CLI', 'Jest', 'Playwright', 'ESLint', 'Prettier', 'PostCSS', 'npm'],
-      },
-      features: [
-        'Registro de usuario e inicio de sesion desde el frontend contra la API backend.',
-        'Dashboard nutricional con metas diarias, consumo de calorias y resumen de macronutrientes.',
-        'Gestion de comidas del dia con distribucion por desayuno, almuerzo, cena y merienda.',
-        'Historial de comidas por fecha con totales nutricionales y nota diaria editable.',
-        'Preparaciones reutilizables con detalle nutricional por porcion y registro como comida.',
-        'Recomendaciones nutricionales por dia o rango de fechas.',
-        'API REST documentada con Swagger y organizada por autenticacion, usuarios, comidas, planes, preparaciones y recomendaciones.',
-        'Persistencia relacional de usuarios, planes nutricionales, comidas, notas diarias, preparaciones y embeddings.',
-        'Eventos WebSocket para sincronizar comidas creadas por usuario.',
-      ],
-      technicalHighlights: [
-        'Proyecto compuesto con frontend Angular y backend NestJS conectados por servicios HTTP tipados.',
-        'Backend modular por dominio con controladores, servicios, entidades TypeORM y migraciones.',
-        'Autenticacion basada en JWT con rutas protegidas y resolucion de usuario autenticado.',
-        'Estado frontend compartido mediante Angular signals y store local.',
-        'Documentacion OpenAPI expuesta en Swagger y capturada por secciones para facilitar revision.',
-        'Strategy + Factory en el modulo de recomendaciones para separar periodo diario y rango.',
-        'Tareas programadas con Nest Schedule para sincronizar embeddings de notas diarias.',
-        'Frontend preparado para despliegue estatico con Docker multi-stage y Nginx.',
-      ],
-      architecture: 'NutriSnap esta organizado como dos subproyectos conectados: NutriSnap-Frontend implementa la experiencia Angular y consume la API configurada en environment.ts; NutriSnap-Backend implementa la API NestJS, documentacion Swagger, logica de dominio, WebSockets y persistencia PostgreSQL con TypeORM. El flujo verificado registra e inicia sesion desde el frontend, consulta datos autenticados en el backend y muestra dashboard, historial, preparaciones y recomendaciones.',
-      role: '',
-      repository: '',
-      screenshots: [
-        '.portfolio/public/project.svg',
-        '.portfolio/screenshots/backend/01-swagger-auth-users.png',
-        '.portfolio/screenshots/backend/02-swagger-meals-plans.png',
-        '.portfolio/screenshots/backend/03-swagger-preparations-recommendations.png',
-        '.portfolio/screenshots/frontend/01-dashboard-with-meals.png',
-        '.portfolio/screenshots/frontend/02-history-with-note.png',
-        '.portfolio/screenshots/frontend/03-food-preparations.png',
-        '.portfolio/screenshots/frontend/04-add-meal-preparation-flow.png',
-        '.portfolio/screenshots/frontend/05-recommendations.png',
-        '.portfolio/screenshots/frontend/06-mobile-dashboard.png',
-      ],
-      status: 'documented',
-      generatedAt: '2026-08-26T12:11:46-05:00',
-    },
-  ];
+  protected readonly projects = signal<Project[]>([]);
+
+  async ngOnInit(): Promise<void> {
+    await Promise.all([
+      this.loadRemoteProjects(),
+      this.loadResumeUrl(),
+    ]);
+  }
 
   ngAfterViewInit(): void {
     this.startProjectAutoplay();
@@ -145,7 +102,7 @@ export class App implements AfterViewInit, OnDestroy {
   }
 
   protected projectPosition(): string {
-    const total = this.projects.length;
+    const total = this.projects().length;
 
     if (total === 0) {
       return '00 / 00';
@@ -191,6 +148,30 @@ export class App implements AfterViewInit, OnDestroy {
     }
   }
 
+  protected async downloadResume(): Promise<void> {
+    try {
+      const response = await fetch(this.resumeUrl());
+
+      if (!response.ok) {
+        throw new Error(`Resume download failed: ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = objectUrl;
+      link.download = 'CV-Mateo.Celis.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(objectUrl);
+    } catch (error) {
+      console.warn('No se pudo descargar la hoja de vida.', error);
+      window.open(this.resumeUrl(), '_blank', 'noopener,noreferrer');
+    }
+  }
+
   private setOrbitalTransform(value: string): void {
     const stage = this.orbitalStage?.nativeElement;
 
@@ -202,11 +183,13 @@ export class App implements AfterViewInit, OnDestroy {
   private scrollToProject(index: number): void {
     const carousel = this.projectCarousel?.nativeElement;
 
-    if (!carousel || this.projects.length === 0) {
+    const projects = this.projects();
+
+    if (!carousel || projects.length === 0) {
       return;
     }
 
-    const nextIndex = (index + this.projects.length) % this.projects.length;
+    const nextIndex = (index + projects.length) % projects.length;
     const card = carousel.querySelectorAll<HTMLElement>('.project-card')[nextIndex];
 
     if (!card) {
@@ -240,7 +223,7 @@ export class App implements AfterViewInit, OnDestroy {
   private startProjectAutoplay(): void {
     this.stopProjectAutoplay();
 
-    if (this.projects.length <= 1 || this.isProjectAutoplayPaused() || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (this.projects().length <= 1 || this.isProjectAutoplayPaused() || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return;
     }
 
@@ -256,6 +239,29 @@ export class App implements AfterViewInit, OnDestroy {
 
   private pad(value: number): string {
     return String(value).padStart(2, '0');
+  }
+
+  private async loadRemoteProjects(): Promise<void> {
+    try {
+      const projects = await this.portfolioProjects.loadProjects();
+
+      if (projects.length === 0) {
+        return;
+      }
+      this.projects.set(projects);
+      this.activeProjectIndex.set(0);
+      this.startProjectAutoplay();
+    } catch (error) {
+      console.warn('No se pudieron cargar proyectos desde S3. Usando fallback local.', error);
+    }
+  }
+
+  private async loadResumeUrl(): Promise<void> {
+    try {
+      this.resumeUrl.set(await this.portfolioProjects.resolvePortfolioAsset('/CV-Mateo.Celis.pdf'));
+    } catch (error) {
+      console.warn('No se pudo resolver la URL de la hoja de vida.', error);
+    }
   }
 
   private registerRevealItems(): void {
