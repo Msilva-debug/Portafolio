@@ -7,6 +7,11 @@ export interface ProjectTechnologies {
   tools: string[];
 }
 
+export interface ProjectLink {
+  label: string;
+  url: string;
+}
+
 export interface Project {
   slug: string;
   name: string;
@@ -19,6 +24,7 @@ export interface Project {
   architecture: string;
   role: string;
   repository: string;
+  applications: ProjectLink[];
   coverImage?: string;
   screenshots: string[];
   status: 'documented' | string;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EMPTY_PORTFOLIO_CONFIG, PORTFOLIO_CONFIG_URL, PortfolioConfig, ResolvedPortfolioConfig } from './portfolio.config';
-import { Project, ProjectTechnologies } from './project.model';
+import { EMPTY_PORTFOLIO_CONFIG, PORTFOLIO_CONFIG_URL, PortfolioConfig, PortfolioLink, ResolvedPortfolioConfig } from './portfolio.config';
+import { Project, ProjectLink, ProjectTechnologies } from './project.model';
 
 type RawProject = Partial<Omit<Project, 'technologies' | 'screenshots'>> & {
   technologies?: Partial<ProjectTechnologies>;
@@ -20,7 +20,7 @@ export class PortfolioProjectsService {
       return [];
     }
 
-    const projects = await Promise.all(config.projectSlugs.map((slug) => this.loadProject(slug, config.projectsBaseUrl)));
+    const projects = await Promise.all(config.projectSlugs.map((slug) => this.loadProject(slug, config.projectsBaseUrl, config.projectApplications[slug])));
 
     return projects
       .filter((project): project is Project => Boolean(project))
@@ -40,6 +40,7 @@ export class PortfolioProjectsService {
       return {
         projectsBaseUrl: config.projectsBaseUrl?.trim() || EMPTY_PORTFOLIO_CONFIG.projectsBaseUrl,
         projectSlugs: this.asStringArray(config.projectSlugs),
+        projectApplications: this.normalizeProjectApplications(config.projectApplications),
       };
     } catch (error) {
       console.warn('No se pudo cargar la configuracion publica del portafolio.', error);
@@ -57,7 +58,7 @@ export class PortfolioProjectsService {
     return this.assetUrl(config.projectsBaseUrl, path);
   }
 
-  private async loadProject(slug: string, projectsBaseUrl: string): Promise<Project | null> {
+  private async loadProject(slug: string, projectsBaseUrl: string, applications: PortfolioLink[] = []): Promise<Project | null> {
     try {
       const response = await fetch(this.assetUrl(projectsBaseUrl, slug, 'project.json'));
 
@@ -65,14 +66,14 @@ export class PortfolioProjectsService {
         throw new Error(`Project ${slug} failed: ${response.status}`);
       }
 
-      return this.normalizeProject(await response.json() as RawProject, slug, projectsBaseUrl);
+      return this.normalizeProject(await response.json() as RawProject, slug, projectsBaseUrl, applications);
     } catch (error) {
       console.warn(`No se pudo cargar el proyecto ${slug}`, error);
       return null;
     }
   }
 
-  private async normalizeProject(project: RawProject, slug: string, projectsBaseUrl: string): Promise<Project> {
+  private async normalizeProject(project: RawProject, slug: string, projectsBaseUrl: string, applications: PortfolioLink[]): Promise<Project> {
     const screenshots = this.normalizeScreenshots(projectsBaseUrl, slug, project.screenshots);
 
     return {
@@ -87,6 +88,7 @@ export class PortfolioProjectsService {
       architecture: project.architecture || '',
       role: project.role || '',
       repository: project.repository || '',
+      applications: this.normalizeLinks(applications),
       coverImage: this.resolveProjectPath(projectsBaseUrl, slug, project.coverImage || 'public/project.svg'),
       screenshots,
       status: project.status || 'documented',
@@ -117,6 +119,40 @@ export class PortfolioProjectsService {
         ];
 
     return screenshots.filter((path) => /\.(png|jpe?g|webp|gif|avif)$/i.test(path));
+  }
+
+  private normalizeProjectApplications(value: unknown): Record<string, ProjectLink[]> {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) {
+      return {};
+    }
+
+    return Object.entries(value).reduce<Record<string, ProjectLink[]>>((applications, [slug, links]) => {
+      const normalizedLinks = this.normalizeLinks(links);
+
+      return normalizedLinks.length > 0 ? { ...applications, [slug]: normalizedLinks } : applications;
+    }, {});
+  }
+
+  private normalizeLinks(value: unknown): ProjectLink[] {
+    if (!Array.isArray(value)) {
+      return [];
+    }
+
+    return value
+      .map((link, index) => {
+        if (!link || typeof link !== 'object' || Array.isArray(link)) {
+          return null;
+        }
+
+        const rawLink = link as Partial<ProjectLink>;
+        const label = typeof rawLink.label === 'string' && rawLink.label.trim()
+          ? rawLink.label.trim()
+          : index === 0 ? 'Aplicación' : `Aplicación ${index + 1}`;
+        const url = typeof rawLink.url === 'string' ? rawLink.url.trim() : '';
+
+        return /^https?:\/\//i.test(url) ? { label, url } : null;
+      })
+      .filter((link): link is ProjectLink => Boolean(link));
   }
 
   private resolveScreenshotPath(projectsBaseUrl: string, slug: string, path: string): string {

@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, ElementRef, HostListener, ViewChild, input } from '@angular/core';
-import { Project } from '../project.model';
+import { Project, ProjectLink } from '../project.model';
 import { ProjectDetailDialogComponent } from '../project-detail-dialog/project-detail-dialog';
 
 @Component({
@@ -18,8 +18,8 @@ export class ProjectCardComponent {
 
   @HostListener('document:pointerdown', ['$event'])
   protected closeRepositoryMenuOnOutsideClick(event: PointerEvent): void {
-    const menu = this.repoMenu?.nativeElement;
     const target = event.target;
+    const menu = this.repoMenu?.nativeElement;
 
     if (!menu?.open || !(target instanceof Node) || menu.contains(target)) {
       return;
@@ -109,10 +109,18 @@ export class ProjectCardComponent {
       .filter((link): link is { label: string; url: string } => Boolean(link));
   }
 
+  protected applicationLink(project: Project): ProjectLink | null {
+    return project.applications[0] ?? null;
+  }
+
   private repositoryLabel(entry: string, index: number): string {
+    if (/^https?:\/\//i.test(entry)) {
+      return index === 0 ? 'Repositorio' : `Repositorio ${index + 1}`;
+    }
+
     const label = entry.match(/^(?<label>[^:]+):/)?.groups?.['label']?.trim();
 
-    return label || (index === 0 ? 'Repositorio' : `Repositorio ${index + 1}`);
+    return label && !/^https?$/i.test(label) ? label : index === 0 ? 'Repositorio' : `Repositorio ${index + 1}`;
   }
 
   private repositoryUrl(entry: string): string {
