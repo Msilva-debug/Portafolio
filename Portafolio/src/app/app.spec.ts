@@ -22,4 +22,13 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Web, backend y móvil.');
   });
+
+  it('should render the certifications section', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelector('#certificaciones h2')?.textContent).toContain('Aprendizaje verificado.');
+    expect(compiled.querySelector('nav a[href="#certificaciones"]')).toBeTruthy();
+  });
 });

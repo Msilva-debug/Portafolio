@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EMPTY_PORTFOLIO_CONFIG, PORTFOLIO_CONFIG_URL, PortfolioConfig, PortfolioLink, ResolvedPortfolioConfig } from './portfolio.config';
 import { Project, ProjectLink, ProjectTechnologies } from './project.model';
+import { Certification } from './certification.model';
 
 type RawProject = Partial<Omit<Project, 'technologies' | 'screenshots'>> & {
   technologies?: Partial<ProjectTechnologies>;
@@ -14,6 +15,9 @@ type ScreenshotManifest = string[] | {
 };
 @Injectable({ providedIn: 'root' })
 export class PortfolioProjectsService {
+  private readonly certificationFilePattern = /\.(pdf|png|jpe?g|webp|gif|svg)$/i;
+  private readonly certificationImagePattern = /\.(png|jpe?g|webp|gif|svg)$/i;
+
   async loadProjects(): Promise<Project[]> {
     const config = await this.loadConfig();
     if (!config.projectsBaseUrl || config.projectSlugs.length === 0) {
@@ -56,6 +60,25 @@ export class PortfolioProjectsService {
     }
 
     return this.assetUrl(config.projectsBaseUrl, path);
+  }
+
+  async loadCertifications(): Promise<Certification[]> {
+    const config = await this.loadConfig();
+
+    if (!config.projectsBaseUrl) {
+      return [];
+    }
+
+    const prefix = 'certificaciones/';
+    const response = await fetch(this.s3ListUrl(config.projectsBaseUrl, prefix), { cache: 'no-store' });
+
+    if (!response.ok) {
+      throw new Error(`Certification listing failed: ${response.status}`);
+    }
+
+    const files = this.parseCertificationFiles(await response.text(), prefix);
+
+    return files.map((file, index) => this.createCertificationFromFile(file, index, config.projectsBaseUrl, prefix));
   }
 
   private async loadProject(slug: string, projectsBaseUrl: string, applications: PortfolioLink[] = []): Promise<Project | null> {
@@ -107,6 +130,47 @@ export class PortfolioProjectsService {
       infrastructure: this.asStringArray(source.infrastructure),
       tools: this.asStringArray(source.tools ?? project.stack),
     };
+  }
+
+  private createCertificationFromFile(file: string, index: number, baseUrl: string, prefix: string): Certification {
+    const fallbackTitle = file
+      .split('/').pop()
+      ?.replace(/\.[^.]+$/, '')
+      .replace(/([a-z])([A-Z])/g, '$1 $2')
+      .replace(/[-_]+/g, ' ') || `Certificación ${index + 1}`;
+    const fileUrl = this.assetUrl(baseUrl, prefix, file);
+
+    return {
+      slug: file.toLowerCase().replace(/\.[^.]+$/, '').replace(/[^a-z0-9]+/g, '-'),
+      title: fallbackTitle,
+      issuer: 'Certificación profesional',
+      issuedAt: '',
+      description: 'Credencial y evidencia de formación profesional.',
+      fileUrl,
+      coverImageUrl: this.certificationImagePattern.test(file) ? fileUrl : '',
+      credentialUrl: '',
+    };
+  }
+
+  private parseCertificationFiles(contents: string, prefix: string): string[] {
+    const document = new DOMParser().parseFromString(contents, 'application/xml');
+    const keys = Array.from(document.getElementsByTagName('Key'))
+      .map((key) => key.textContent?.trim() || '');
+
+    return keys
+      .filter((key) => key.startsWith(prefix))
+      .map((key) => key.slice(prefix.length))
+      .filter((file) => file.length > 0 && !file.endsWith('/') && !file.includes('/') && this.certificationFilePattern.test(file))
+      .sort((left, right) => left.localeCompare(right));
+  }
+
+  private s3ListUrl(baseUrl: string, prefix: string): string {
+    const url = new URL(baseUrl);
+
+    url.searchParams.set('list-type', '2');
+    url.searchParams.set('prefix', prefix);
+
+    return url.toString();
   }
 
   private normalizeScreenshots(projectsBaseUrl: string, slug: string, manifest: ScreenshotManifest | undefined): string[] {
@@ -188,5 +252,13 @@ export class PortfolioProjectsService {
 
   private asStringArray(value: unknown): string[] {
     return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string' && item.trim().length > 0) : [];
+  }
+
+  private asHttpUrl(value: unknown): string {
+    return typeof value === 'string' && /^https?:\/\//i.test(value.trim()) ? value.trim() : '';
+  }
+
+  private isRecord(value: unknown): value is Record<string, unknown> {
+    return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
   }
 }

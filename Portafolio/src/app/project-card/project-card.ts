@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild, input } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, input, output } from '@angular/core';
 import { Project, ProjectLink } from '../project.model';
 import { ProjectDetailDialogComponent } from '../project-detail-dialog/project-detail-dialog';
 
@@ -12,6 +12,8 @@ import { ProjectDetailDialogComponent } from '../project-detail-dialog/project-d
 export class ProjectCardComponent {
   readonly project = input.required<Project>();
   readonly index = input.required<number>();
+  readonly cardInteraction = output<HTMLElement>();
+  readonly repositoryMenuClosed = output<void>();
 
   @ViewChild(ProjectDetailDialogComponent) private projectDialog?: ProjectDetailDialogComponent;
   @ViewChild('repoMenu') private repoMenu?: ElementRef<HTMLDetailsElement>;
@@ -26,6 +28,7 @@ export class ProjectCardComponent {
     }
 
     menu.open = false;
+    this.emitRepositoryMenuClosed();
   }
 
   protected screenshot(project: Project): string {
@@ -132,5 +135,41 @@ export class ProjectCardComponent {
 
   protected openDialog(): void {
     this.projectDialog?.open();
+  }
+
+  protected emitCardInteraction(event: Event): void {
+    if (this.isCardAction(event.target)) {
+      return;
+    }
+
+    if (event.currentTarget instanceof HTMLElement) {
+      this.cardInteraction.emit(event.currentTarget);
+    }
+  }
+
+  private isCardAction(target: EventTarget | null): boolean {
+    return target instanceof HTMLElement
+      && Boolean(target.closest('a, button, details, summary, .project-actions'));
+  }
+
+  protected onRepositoryMenuToggle(event: Event): void {
+    if (event.currentTarget instanceof HTMLDetailsElement && !event.currentTarget.open) {
+      this.emitRepositoryMenuClosed();
+    }
+  }
+
+  protected closeRepositoryMenu(): void {
+    const menu = this.repoMenu?.nativeElement;
+
+    if (!menu?.open) {
+      return;
+    }
+
+    menu.open = false;
+    this.emitRepositoryMenuClosed();
+  }
+
+  private emitRepositoryMenuClosed(): void {
+    window.setTimeout(() => this.repositoryMenuClosed.emit());
   }
 }

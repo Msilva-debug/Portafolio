@@ -155,3 +155,49 @@ URLs públicas
 slugs públicos
 dominios públicos
 ```
+
+---
+
+# 8. Certificaciones en S3
+
+La sección de certificaciones usa la misma `PORTFOLIO_PROJECTS_BASE_URL` y busca
+un manifiesto público en:
+
+```text
+https://portafolio.butaquinha.online/certificaciones/index.json
+```
+
+Los PDF, imágenes de portada y demás evidencias deben quedar dentro de esa misma
+carpeta. El manifiesto puede usar nombres simples para generar las tarjetas
+automáticamente:
+
+```json
+[
+  "aws-cloud-practitioner.pdf",
+  "scrum-foundations.pdf"
+]
+```
+
+Para mostrar información completa y una portada opcional, usar objetos:
+
+```json
+{
+  "certifications": [
+    {
+      "slug": "aws-cloud-practitioner",
+      "title": "AWS Certified Cloud Practitioner",
+      "issuer": "Amazon Web Services",
+      "issuedAt": "2026",
+      "description": "Fundamentos de nube, seguridad, costos y servicios AWS.",
+      "file": "aws-cloud-practitioner.pdf",
+      "coverImage": "portadas/aws-cloud-practitioner.webp",
+      "credentialUrl": "https://www.credly.com/badges/identificador-publico"
+    }
+  ]
+}
+```
+
+`file` es el único campo obligatorio. También acepta una URL HTTPS completa. Si
+no se incluye `coverImage`, la interfaz muestra un sello gráfico consistente con
+el diseño del portafolio. Al agregar o retirar certificados solo se actualiza S3;
+no es necesario recompilar Angular.

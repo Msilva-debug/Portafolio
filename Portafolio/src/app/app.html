@@ -10,6 +10,7 @@
     <nav aria-label="Navegación principal">
       <a href="#experiencia">Experiencia</a>
       <a href="#proyectos">Proyectos</a>
+      <a href="#certificaciones">Certificaciones</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
@@ -54,8 +55,8 @@
         <div class="orbital-stage" #orbitalStage>
           <div class="profile-visual">
             <div class="profile-photo" aria-live="polite">
-              @if (profileImage) {
-                <img [src]="profileImage" alt="Retrato profesional de Mateo Silva">
+              @if (profileImage()) {
+                <img [src]="profileImage()" alt="Retrato profesional de Mateo Silva">
               } @else {
                 <div class="photo-placeholder">
                   <strong>[ FOTO 4:5 ]</strong>
@@ -146,37 +147,6 @@
 
       <div class="project-toolbar reveal visible">
         <span class="meta" aria-live="polite">{{ projects().length }} {{ projects().length === 1 ? 'proyecto' : 'proyectos' }}</span>
-        <div class="project-carousel-controls" aria-label="Controles del carrusel">
-          <button
-            class="carousel-control"
-            type="button"
-            aria-label="Proyecto anterior"
-            [disabled]="projects().length <= 1"
-            (click)="previousProject()"
-          >
-            ←
-          </button>
-          <span class="project-position" aria-live="polite">{{ projectPosition() }}</span>
-          <button
-            class="carousel-control"
-            type="button"
-            aria-label="Proyecto siguiente"
-            [disabled]="projects().length <= 1"
-            (click)="nextProject()"
-          >
-            →
-          </button>
-          <button
-            class="carousel-control"
-            type="button"
-            aria-label="Pausar reproducción automática"
-            [disabled]="projects().length <= 1"
-            [attr.aria-pressed]="isProjectAutoplayPaused()"
-            (click)="toggleProjectAutoplay()"
-          >
-            {{ isProjectAutoplayPaused() ? '▶' : 'Ⅱ' }}
-          </button>
-        </div>
       </div>
 
       <div
@@ -184,11 +154,20 @@
         #projectCarousel
         tabindex="0"
         aria-label="Carrusel de proyectos"
-        (scroll)="onProjectCarouselScroll()"
+        (wheel)="nudgeProjectCarousel($event)"
+        (pointerdown)="beginProjectCarouselDrag($event)"
+        (pointermove)="moveCarouselDrag($event)"
+        (pointerup)="endCarouselDrag($event)"
+        (pointercancel)="endCarouselDrag($event)"
       >
-        <div class="project-grid" role="list" [class.single]="projects().length <= 1">
-          @for (project of projects(); track project.slug; let index = $index) {
-            <app-project-card [project]="project" [index]="index" />
+        <div class="project-grid" #projectTrack role="list" [class.single]="projects().length <= 1">
+          @for (project of carouselProjects(); track project.slug + '-' + index; let index = $index) {
+            <app-project-card
+              [project]="project"
+              [index]="projectCarouselIndex(index)"
+              (cardInteraction)="pauseProjectAutoplayOnCard($event)"
+              (repositoryMenuClosed)="resumeProjectAutoplay()"
+            />
           }
         </div>
       </div>
@@ -198,6 +177,82 @@
           <div>
             <strong>SIN PROYECTOS</strong>
             <p>Sube carpetas de proyectos al bucket o publica index.json para listarlos aquí.</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="section scene scene-certifications" id="certificaciones">
+    <div class="container">
+      <div class="certification-heading reveal visible">
+        <div>
+          <p class="eyebrow">CERTIFICACIONES · ARCHIVO PROFESIONAL</p>
+          <h2>Aprendizaje verificado.</h2>
+          <p class="lead section-lead">Credenciales que respaldan mi formación continua y las habilidades que llevo a cada producto.</p>
+        </div>
+        <div class="certification-summary">
+          <div class="certification-counter" aria-live="polite">
+            <strong>{{ certifications().length }}</strong>
+            <span>{{ certifications().length === 1 ? 'credencial' : 'credenciales' }}</span>
+          </div>
+        </div>
+      </div>
+
+      @if (certifications().length > 0) {
+        <div
+          class="certification-carousel-viewport reveal visible"
+          #certificationCarousel
+          tabindex="0"
+          aria-label="Carrusel de certificaciones"
+          (wheel)="nudgeCertificationCarousel($event)"
+          (pointerdown)="beginCertificationCarouselDrag($event)"
+          (pointermove)="moveCarouselDrag($event)"
+          (pointerup)="endCarouselDrag($event)"
+          (pointercancel)="endCarouselDrag($event)"
+        >
+          <div class="certification-track" #certificationTrack role="list">
+            @for (certification of carouselCertifications(); track certification.slug + '-' + index; let index = $index) {
+              <article
+                class="certification-card reveal visible"
+                role="listitem"
+                tabindex="0"
+                (pointerdown)="pauseCertificationAutoplayOnCard($event)"
+                (focusin)="pauseCertificationAutoplayOnCard($event)"
+              >
+                <div class="certificate-visual" [class.has-cover]="certification.coverImageUrl">
+                  @if (certification.coverImageUrl) {
+                    <img [src]="certification.coverImageUrl" [alt]="'Vista previa de ' + certification.title" loading="lazy">
+                  } @else {
+                    <span class="certificate-seal" aria-hidden="true">✓</span>
+                    <span class="certificate-filetype">PDF / DOC</span>
+                  }
+                  <span class="certificate-index">{{ certificationCarouselIndex(index).toString().padStart(2, '0') }}</span>
+                </div>
+                <div class="certificate-copy">
+                  <div class="certificate-meta">
+                    <span>{{ certification.issuer }}</span>
+                    @if (certification.issuedAt) { <time>{{ certification.issuedAt }}</time> }
+                  </div>
+                  <h3>{{ certification.title }}</h3>
+                  <p>{{ certification.description }}</p>
+                  <div class="certificate-actions">
+                    <a class="btn btn-primary" [href]="certification.fileUrl" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
+                    @if (certification.credentialUrl) {
+                      <a class="certificate-verify" [href]="certification.credentialUrl" target="_blank" rel="noopener noreferrer">Validar credencial</a>
+                    }
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+        </div>
+      } @else {
+        <div class="certification-empty reveal visible">
+          <span aria-hidden="true">[ + ]</span>
+          <div>
+            <strong>ARCHIVO EN PREPARACIÓN</strong>
+            <p>Las certificaciones aparecerán aquí al publicar archivos PDF o imágenes en <code>certificaciones/</code>.</p>
           </div>
         </div>
       }
