@@ -254,10 +254,6 @@ export class PortfolioProjectsService {
     return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string' && item.trim().length > 0) : [];
   }
 
-  private asHttpUrl(value: unknown): string {
-    return typeof value === 'string' && /^https?:\/\//i.test(value.trim()) ? value.trim() : '';
-  }
-
   private isRecord(value: unknown): value is Record<string, unknown> {
     return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
   }

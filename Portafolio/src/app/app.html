@@ -2,10 +2,27 @@
 
 <header class="topnav">
   <div class="container topnav-inner">
-    <a class="logo" href="#inicio" aria-label="Ir al inicio">
-      <span class="logo-dot"></span>
-      <span class="logo-name">MATEO SILVA / DEV</span>
-    </a>
+    <div class="nav-left">
+      <a class="logo" href="#inicio" aria-label="Ir al inicio">
+        <span class="logo-dot"></span>
+        <span class="logo-name">MATEO SILVA / DEV</span>
+      </a>
+
+      <button
+        class="nav-resume-cta"
+        type="button"
+        aria-label="Descargar hoja de vida de Mateo Silva"
+        title="Descargar hoja de vida"
+        (click)="downloadResume()"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+          <path d="M12 3v12"></path>
+          <path d="m7 10 5 5 5-5"></path>
+          <path d="M5 20h14"></path>
+        </svg>
+        <span>Hoja de vida</span>
+      </button>
+    </div>
 
     <nav aria-label="Navegación principal">
       <a href="#experiencia">Experiencia</a>
@@ -13,16 +30,6 @@
       <a href="#certificaciones">Certificaciones</a>
       <a href="#contacto">Contacto</a>
     </nav>
-
-    <button
-      class="btn btn-secondary nav-resume-cta"
-      type="button"
-      aria-label="Descargar hoja de vida de Mateo Silva"
-      title="Descargar hoja de vida"
-      (click)="downloadResume()"
-    >
-      Descargar hoja de vida
-    </button>
   </div>
 </header>
 

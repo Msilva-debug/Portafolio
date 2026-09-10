@@ -6,8 +6,16 @@
   #projectDialog
   [attr.aria-labelledby]="'project-dialog-title-' + currentProject.slug"
   (click)="closeOnBackdropClick($event)"
+  (close)="onDialogClose()"
 >
-  <div class="project-dialog-shell">
+  <div
+    class="project-dialog-shell"
+    #dialogShell
+    (wheel)="stopModalInteraction($event)"
+    (pointerdown)="stopModalInteraction($event)"
+    (pointermove)="stopModalInteraction($event)"
+    (touchmove)="stopModalInteraction($event)"
+  >
     <header class="project-dialog-head">
       <div>
         <span class="meta">FICHA TÉCNICA</span>

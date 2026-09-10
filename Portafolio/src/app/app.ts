@@ -399,7 +399,12 @@ export class App implements AfterViewInit, OnDestroy, OnInit {
   }
 
   private beginCarouselDrag(kind: 'project' | 'certification', event: PointerEvent): void {
-    if (!this.carouselConfig(kind) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (
+      event.pointerType !== 'touch'
+      || this.isInteractiveCarouselTarget(event.target)
+      || !this.carouselConfig(kind)
+      || window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       return;
     }
 
@@ -413,6 +418,11 @@ export class App implements AfterViewInit, OnDestroy, OnInit {
     if (event.currentTarget instanceof HTMLElement) {
       event.currentTarget.setPointerCapture(event.pointerId);
     }
+  }
+
+  private isInteractiveCarouselTarget(target: EventTarget | null): boolean {
+    return target instanceof HTMLElement
+      && Boolean(target.closest('a, button, details, summary, input, select, textarea, [role="button"]'));
   }
 
   private nudgeCarousel(kind: 'project' | 'certification', delta: number, event: Event, restartAutoplay = true): void {

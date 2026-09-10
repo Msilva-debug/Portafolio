@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, input } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild, input } from '@angular/core';
 import { Project, ProjectTechnologies } from '../project.model';
 
 @Component({
@@ -7,24 +7,42 @@ import { Project, ProjectTechnologies } from '../project.model';
   templateUrl: './project-detail-dialog.html',
   styles: [':host { display: contents; }'],
 })
-export class ProjectDetailDialogComponent {
+export class ProjectDetailDialogComponent implements OnDestroy {
   readonly project = input.required<Project>();
   readonly summary = input.required<string>();
 
   @ViewChild('projectDialog') private projectDialog?: ElementRef<HTMLDialogElement>;
+  @ViewChild('dialogShell') private dialogShell?: ElementRef<HTMLElement>;
 
   open(): void {
     this.projectDialog?.nativeElement.showModal();
+    this.dialogShell?.nativeElement.scrollTo({ top: 0 });
+    document.documentElement.classList.add('dialog-open');
+    document.body.classList.add('dialog-open');
+  }
+
+  ngOnDestroy(): void {
+    document.documentElement.classList.remove('dialog-open');
+    document.body.classList.remove('dialog-open');
   }
 
   protected close(): void {
     this.projectDialog?.nativeElement.close();
   }
 
+  protected onDialogClose(): void {
+    document.documentElement.classList.remove('dialog-open');
+    document.body.classList.remove('dialog-open');
+  }
+
   protected closeOnBackdropClick(event: MouseEvent): void {
     if (event.target === this.projectDialog?.nativeElement) {
       this.close();
     }
+  }
+
+  protected stopModalInteraction(event: Event): void {
+    event.stopPropagation();
   }
 
   protected technologyGroups(project: Project): { label: string; items: string[] }[] {
