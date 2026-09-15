@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, ElementRef, HostListener, ViewChild, input, output } from '@angular/core';
+import { RepoMetric } from '../github-stats.model';
 import { Project, ProjectLink } from '../project.model';
 import { ProjectDetailDialogComponent } from '../project-detail-dialog/project-detail-dialog';
 
@@ -12,6 +13,7 @@ import { ProjectDetailDialogComponent } from '../project-detail-dialog/project-d
 export class ProjectCardComponent {
   readonly project = input.required<Project>();
   readonly index = input.required<number>();
+  readonly repoMetric = input<RepoMetric | null>(null);
   readonly cardInteraction = output<HTMLElement>();
   readonly repositoryMenuClosed = output<void>();
 

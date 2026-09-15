@@ -1,0 +1,27 @@
+:host { display: block; min-width: 0; }
+.portfolio-carousel { overflow: hidden; touch-action: pan-y; }
+.portfolio-carousel-track { display: flex; gap: 32px; width: max-content; padding: 4px 10px 14px 4px; will-change: transform; }
+.portfolio-carousel-item { display: grid; flex: 0 0 min(560px, calc(100vw - 104px)); min-width: 0; }
+.professional-project .portfolio-carousel-track.is-single { width: 100%; }
+.professional-project .portfolio-carousel-track.is-single .portfolio-carousel-item { flex-basis: 100%; }
+.professional-project .portfolio-carousel-item { flex-basis: min(960px, calc(100vw - (var(--gutter) * 2) - 64px)); }
+.professional-certification .portfolio-carousel-item { flex-basis: calc((min(var(--container), 100vw) - (var(--gutter) * 2) - var(--gap-lg)) / 2); }
+.playful-project .portfolio-carousel-item { flex-basis: min(570px, calc(100vw - 104px)); }
+.playful-certification .portfolio-carousel-item { flex-basis: min(370px, calc(100vw - 104px)); }
+
+@media (max-width: 920px) {
+  .professional-project .portfolio-carousel-item { flex-basis: min(760px, calc(100vw - 64px)); }
+  .professional-certification .portfolio-carousel-item { flex-basis: min(520px, calc(100vw - 64px)); }
+}
+
+@media (max-width: 560px) {
+  .portfolio-carousel-track { gap: 14px; padding: 4px 6px 12px 2px; }
+  .professional-project .portfolio-carousel-item { flex-basis: min(82vw, 330px); }
+  .professional-certification .portfolio-carousel-item { flex-basis: min(82vw, 310px); }
+  .playful-project .portfolio-carousel-item { flex-basis: min(86vw, 345px); }
+  .playful-certification .portfolio-carousel-item { flex-basis: min(82vw, 320px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-carousel-track { transform: none !important; }
+}

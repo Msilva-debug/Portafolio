@@ -1,0 +1,2032 @@
+/* ==========================================================================
+   Playful Portfolio - Exotic Neo-Brutalist & Animated Aesthetics
+   ========================================================================== */
+
+.playful-portfolio {
+  --play-paper: #f7f3e8;
+  --play-ink: #242322;
+  --play-coral: #ff7054;
+  --play-lime: #d2ef7a;
+  --play-lilac: #c9bbef;
+  --play-pink: #ff66c4;
+  --play-yellow: #ffd84d;
+  --play-cyan: #5ce1e6;
+  --play-purple: #7a52b3;
+  --bg: var(--play-paper);
+  --surface: #fffdf7;
+  --fg: var(--play-ink);
+  --muted: #53504b;
+  --border: #a6a093;
+  --accent: #5a437f;
+  --font-display: 'Arial Black', 'Avenir Next', 'Segoe UI', sans-serif;
+  --font-body: 'Avenir Next', 'Segoe UI', Arial, sans-serif;
+  position: relative;
+  color: var(--play-ink);
+  background: var(--play-paper);
+  font-family: var(--font-body);
+  line-height: 1.55;
+  overflow: clip;
+}
+
+/* --- Floating Ambient Background Shapes --- */
+.playful-portfolio .play-ambient-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.playful-portfolio .play-shape {
+  position: absolute;
+  font-family: var(--font-display);
+  color: var(--play-ink);
+  opacity: 0.12;
+  user-select: none;
+}
+
+.playful-portfolio .shape-star-1 {
+  top: 4%;
+  left: 3%;
+  font-size: 110px;
+  color: var(--play-coral);
+  opacity: 0.25;
+  animation: play-spin-slow 22s linear infinite;
+}
+
+.playful-portfolio .shape-star-2 {
+  top: 28%;
+  right: 4%;
+  font-size: 85px;
+  color: var(--play-purple);
+  opacity: 0.2;
+  animation: play-float-1 7s ease-in-out infinite;
+}
+
+.playful-portfolio .shape-star-3 {
+  top: 55%;
+  left: 2%;
+  font-size: 95px;
+  color: var(--play-lime);
+  opacity: 0.3;
+  animation: play-float-2 9s ease-in-out infinite;
+}
+
+.playful-portfolio .shape-spark-1 {
+  top: 78%;
+  right: 5%;
+  font-size: 70px;
+  color: var(--play-yellow);
+  opacity: 0.35;
+  animation: play-pulse-glow 3s ease-in-out infinite;
+}
+
+.playful-portfolio .shape-spark-2 {
+  top: 42%;
+  left: 48%;
+  font-size: 60px;
+  color: var(--play-pink);
+  opacity: 0.18;
+  animation: play-float-1 8s ease-in-out infinite;
+}
+
+/* --- Container & Layout --- */
+.playful-portfolio .play-wrap {
+  position: relative;
+  z-index: 1;
+  width: min(1240px, 100%);
+  margin-inline: auto;
+  padding-inline: 52px;
+}
+
+.playful-portfolio .play-section {
+  padding-block: 100px;
+  scroll-margin-top: 120px;
+}
+
+.playful-portfolio :is(h1, h2, h3, h4) {
+  font-family: var(--font-display);
+  color: inherit;
+}
+
+.playful-portfolio :is(h1, h2) {
+  font-weight: 900;
+  letter-spacing: -.075em;
+  text-wrap: initial;
+}
+
+.playful-portfolio h2 {
+  font-size: clamp(44px, 5.7vw, 78px);
+  line-height: 1.02;
+}
+
+.playful-portfolio h3 {
+  font-weight: 800;
+}
+
+.playful-portfolio :is(button, a) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.playful-portfolio :focus-visible {
+  outline: 3px solid var(--play-purple);
+  outline-offset: 5px;
+}
+
+.playful-portfolio .play-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 20px;
+  font: 700 11px/1.6 ui-monospace, monospace;
+  letter-spacing: .08em;
+}
+
+.playful-portfolio .play-tiny-star {
+  font: 30px/1 Arial, sans-serif;
+  color: var(--play-coral);
+  display: inline-block;
+  animation: play-star-spin 8s linear infinite;
+}
+
+/* --- Buttons & Links --- */
+.playful-portfolio .play-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 52px;
+  border: 2.5px solid var(--play-ink);
+  border-radius: 6px;
+  padding: 13px 22px;
+  box-shadow: 4px 4px 0 var(--play-ink);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+  transition: transform .2s cubic-bezier(.175, .885, .32, 1.275), box-shadow .2s ease, background-color .2s ease;
+}
+
+.playful-portfolio .play-button:hover {
+  transform: translate(-3px, -3px) rotate(-1deg);
+  box-shadow: 7px 7px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-button span {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1;
+  transition: transform .2s ease;
+}
+
+.playful-portfolio .play-button:hover span {
+  transform: translateX(4px) scale(1.15);
+}
+
+.playful-portfolio .play-button-dark {
+  background: var(--play-ink);
+  color: var(--play-paper);
+  box-shadow: 4px 4px 0 var(--play-coral);
+}
+
+.playful-portfolio .play-button-dark:hover {
+  box-shadow: 7px 7px 0 var(--play-coral);
+  background: #111;
+}
+
+.playful-portfolio .play-button-paper {
+  background: var(--play-paper);
+  color: var(--play-ink);
+}
+
+.playful-portfolio .play-button-paper:hover {
+  background: #ffffff;
+}
+
+.playful-portfolio .play-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.playful-portfolio .play-text-link:hover {
+  color: var(--play-purple);
+  transform: translateX(3px);
+}
+
+/* --- Hero Section --- */
+.playful-portfolio .play-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
+  align-items: center;
+  column-gap: 40px;
+  padding-top: 50px;
+  padding-bottom: 67px;
+  scroll-margin-top: 130px;
+}
+
+.playful-portfolio .play-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 6px 14px;
+  border: 2px solid var(--play-ink);
+  border-radius: 30px;
+  background: var(--play-yellow);
+  box-shadow: 3px 3px 0 var(--play-ink);
+  font: 800 10px/1.4 ui-monospace, monospace;
+  letter-spacing: .06em;
+  transform: rotate(-1.5deg);
+  animation: play-pop-in .5s ease both;
+}
+
+.playful-portfolio .play-pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: play-pulse-green 1.8s infinite;
+}
+
+.playful-portfolio .play-hero-copy .play-kicker {
+  animation: play-pop-in .55s .05s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.playful-portfolio .play-hero h1 {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(68px, 7.5vw, 105px);
+  line-height: .99;
+  animation: play-pop-in .72s .12s cubic-bezier(.16,1,.3,1) both;
+}
+
+.playful-portfolio .play-highlight {
+  position: relative;
+  display: inline-block;
+  color: var(--play-ink);
+}
+
+.playful-portfolio .play-highlight svg {
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  width: 100%;
+  height: 23px;
+  fill: none;
+  stroke: var(--play-coral);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.playful-portfolio .play-highlight svg path {
+  stroke-dasharray: 850;
+  stroke-dashoffset: 850;
+  animation: play-draw-line 1.15s .76s ease-out forwards;
+}
+
+.playful-portfolio .play-dot {
+  color: var(--play-coral);
+  display: inline-block;
+  animation: play-bounce 2s ease infinite;
+}
+
+.playful-portfolio .play-hero-description {
+  max-width: 450px;
+  margin: 26px 0 25px;
+  font-size: 16px;
+  line-height: 1.7;
+  animation: play-pop-in .6s .28s ease both;
+}
+
+.playful-portfolio .play-hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  animation: play-pop-in .6s .38s ease both;
+}
+
+/* --- Hero Collage & Polaroid --- */
+.playful-portfolio .play-collage {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  min-height: 520px;
+  justify-self: end;
+}
+
+.playful-portfolio .play-orbit-word {
+  position: absolute;
+  z-index: 2;
+  right: 1px;
+  top: 0;
+  font-size: 15px;
+  font-style: italic;
+  transform: rotate(5deg);
+  font-weight: 600;
+}
+
+.playful-portfolio .play-floating-badge {
+  position: absolute;
+  z-index: 5;
+  padding: 6px 12px;
+  border: 2px solid var(--play-ink);
+  border-radius: 4px;
+  font: 800 10px/1.4 ui-monospace, monospace;
+  letter-spacing: .06em;
+  box-shadow: 3px 3px 0 var(--play-ink);
+  pointer-events: none;
+  transition: transform .2s ease;
+}
+
+.playful-portfolio .play-badge-fresh {
+  top: 45px;
+  left: -20px;
+  background: var(--play-cyan);
+  transform: rotate(-11deg);
+  animation: play-float-1 5s ease-in-out infinite;
+}
+
+.playful-portfolio .play-badge-stack {
+  bottom: 85px;
+  right: -15px;
+  background: var(--play-pink);
+  color: #fff;
+  transform: rotate(9deg);
+  animation: play-float-2 6s ease-in-out infinite;
+}
+
+.playful-portfolio .play-polaroid {
+  position: absolute;
+  inset: 42px 34px 47px 42px;
+  margin: 0;
+  padding: 14px 14px 18px;
+  background: #fffef9;
+  border: 2.5px solid var(--play-ink);
+  box-shadow: 10px 11px 0 var(--play-ink);
+  transform: translate3d(var(--play-photo-x, 0px), var(--play-photo-y, 0px), 0) rotate(6deg);
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
+  animation: play-photo-develop .85s .25s ease both;
+}
+
+.playful-portfolio .play-polaroid:hover {
+  transform: translate3d(var(--play-photo-x, 0px), calc(var(--play-photo-y, 0px) - 6px), 0) rotate(2deg) scale(1.02);
+  box-shadow: 14px 16px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-tape {
+  position: absolute;
+  z-index: 3;
+  top: -18px;
+  left: 26%;
+  width: 120px;
+  height: 36px;
+  background: repeating-linear-gradient(-45deg, rgba(210, 239, 122, 0.9), rgba(210, 239, 122, 0.9) 10px, rgba(255, 216, 77, 0.9) 10px, rgba(255, 216, 77, 0.9) 20px);
+  border-inline: 2px dashed rgb(36 35 34 / 35%);
+  transform: rotate(-8deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.playful-portfolio .play-portrait {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 58px);
+  overflow: hidden;
+  background: var(--play-lilac);
+  border: 2px solid var(--play-ink);
+}
+
+.playful-portfolio .play-holographic-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.4) 45%, transparent 60%);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.playful-portfolio .play-polaroid:hover .play-holographic-overlay {
+  opacity: 1;
+  animation: play-hologram-shine 1.5s ease infinite;
+}
+
+.playful-portfolio .play-portrait img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 32%;
+  transition: transform .4s ease;
+}
+
+.playful-portfolio .play-polaroid:hover .play-portrait img {
+  transform: scale(1.05);
+}
+
+.playful-portfolio .play-portrait-placeholder {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -.08em;
+  text-align: center;
+}
+
+.playful-portfolio .play-portrait-placeholder span { font-size: 60px; }
+
+.playful-portfolio .play-polaroid figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 62px;
+  padding-top: 10px;
+}
+
+.playful-portfolio .play-polaroid figcaption strong {
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: -.06em;
+}
+
+.playful-portfolio .play-polaroid figcaption > span {
+  max-width: 90px;
+  font: 9px/1.5 ui-monospace, monospace;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.playful-portfolio .play-collage-star {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 4px;
+  color: var(--play-coral);
+  font-size: 114px;
+  line-height: 1;
+  -webkit-text-stroke: 2px var(--play-ink);
+  animation: play-star-dance 5s .6s ease-in-out infinite;
+}
+
+.playful-portfolio .play-round-sticker {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  right: -5px;
+  top: 290px;
+  width: 115px;
+  height: 115px;
+  background: var(--play-lilac);
+  border: 2.5px solid var(--play-ink);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 var(--play-ink);
+  transform: translate3d(var(--play-sticker-x, 0px), var(--play-sticker-y, 0px), 0) rotate(14deg);
+  transition: transform .2s cubic-bezier(.2,.8,.2,1), background-color .2s ease;
+  font: 800 11px/1.25 ui-monospace, monospace;
+  letter-spacing: .1em;
+}
+
+.playful-portfolio .play-round-sticker:hover {
+  background: var(--play-lime);
+  transform: rotate(25deg) scale(1.1);
+}
+
+.playful-portfolio .play-round-sticker strong {
+  animation: play-arrow-nudge 1.5s ease-in-out infinite;
+  font-size: 50px;
+  line-height: .95;
+  font-weight: 400;
+}
+
+.playful-portfolio .play-note {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  bottom: 3px;
+  padding: 15px 18px 18px;
+  width: 230px;
+  background: var(--play-lime);
+  border: 2.5px solid var(--play-ink);
+  box-shadow: 4px 5px 0 var(--play-ink);
+  transform: rotate(-7deg);
+  transition: transform .2s ease;
+}
+
+.playful-portfolio .play-note:hover {
+  transform: rotate(-3deg) scale(1.04);
+}
+
+.playful-portfolio .play-note > span { font: 900 23px/1 ui-monospace, monospace; }
+.playful-portfolio .play-note p { margin: 9px 0 0; font-size: 13px; font-weight: 750; line-height: 1.5; }
+
+.playful-portfolio .play-collage-scribble {
+  position: absolute;
+  right: 57px;
+  bottom: -25px;
+  font-size: 70px;
+  line-height: 1;
+  color: var(--play-purple);
+  animation: play-scribble-spin 9s linear infinite;
+}
+
+/* --- La Máquina de los «¿Y si…?» --- */
+.playful-portfolio .play-idea-machine {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  grid-column: 1 / -1;
+  margin-top: 60px;
+  padding: 22px 26px;
+  border: 2.5px solid var(--play-ink);
+  border-radius: 12px;
+  background: #eeeadf;
+  box-shadow: 6px 6px 0 var(--play-ink);
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+
+.playful-portfolio .play-idea-machine.is-mixing {
+  animation: play-machine-shake .45s ease;
+  border-color: var(--play-pink);
+  box-shadow: 8px 8px 0 var(--play-pink);
+}
+
+.playful-portfolio .play-idea-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font: 800 10px/1.65 ui-monospace, monospace;
+  letter-spacing: .04em;
+}
+
+.playful-portfolio .play-idea-face {
+  font: 50px/1 Arial, sans-serif;
+  display: inline-block;
+  transition: transform .3s ease;
+}
+
+.playful-portfolio .play-idea-title {
+  display: block;
+  font-weight: 900;
+  font-size: 11px;
+}
+
+.playful-portfolio .play-soundwave {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 12px;
+  margin-top: 4px;
+}
+
+.playful-portfolio .play-soundwave span {
+  width: 3px;
+  height: 100%;
+  background: var(--play-ink);
+  border-radius: 2px;
+  animation: play-eq-wave 1.2s ease-in-out infinite alternate;
+}
+
+.playful-portfolio .play-soundwave span:nth-child(1) { animation-delay: 0s; }
+.playful-portfolio .play-soundwave span:nth-child(2) { animation-delay: .2s; }
+.playful-portfolio .play-soundwave span:nth-child(3) { animation-delay: .4s; }
+.playful-portfolio .play-soundwave span:nth-child(4) { animation-delay: .6s; }
+
+.playful-portfolio .play-idea-output {
+  margin: 0;
+  padding-left: 24px;
+  border-left: 2px solid #b4aea2;
+  font-size: 16px;
+  font-weight: 650;
+  color: var(--play-ink);
+}
+
+.playful-portfolio .play-idea-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 8px 18px;
+  border: 2px solid var(--play-ink);
+  border-radius: 6px;
+  background: var(--play-coral);
+  color: var(--play-ink);
+  box-shadow: 4px 4px 0 var(--play-ink);
+  font-size: 13px;
+  font-weight: 850;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+
+.playful-portfolio .play-idea-button:hover {
+  background: var(--play-lime);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-idea-button:hover > span {
+  animation: play-button-spin .55s cubic-bezier(.2,.8,.2,1);
+}
+
+.playful-portfolio .play-idea-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-idea-button > span { font: 28px/1 Arial, sans-serif; }
+
+.playful-portfolio .play-idea-counter {
+  position: absolute;
+  right: 20px;
+  bottom: -27px;
+  font: 800 10px/1.4 ui-monospace, monospace;
+  letter-spacing: .06em;
+  color: var(--play-ink);
+}
+
+.playful-portfolio .play-idea-machine.is-mixing .play-idea-output { animation: play-idea-swap .55s cubic-bezier(.16,1,.3,1); }
+.playful-portfolio .play-idea-machine.is-mixing .play-idea-face { animation: play-face-flip .6s cubic-bezier(.16,1,.3,1); }
+
+/* Burst particles */
+.playful-portfolio .play-idea-burst {
+  position: absolute;
+  z-index: 6;
+  right: 120px;
+  top: 50%;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.playful-portfolio .play-idea-burst i {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--play-ink);
+  background: var(--play-coral);
+  animation: play-confetti .75s cubic-bezier(.2,1,.3,1) both;
+}
+
+.playful-portfolio .play-idea-burst i:nth-child(2n) { border-radius: 50%; background: var(--play-lime); }
+.playful-portfolio .play-idea-burst i:nth-child(3n) { background: var(--play-cyan); }
+.playful-portfolio .play-idea-burst i:nth-child(4n) { background: var(--play-pink); }
+.playful-portfolio .play-idea-burst i:nth-child(5n) { background: var(--play-yellow); border-radius: 2px; }
+
+.playful-portfolio .play-idea-burst i:nth-child(1) { --burst-x: -95px; --burst-y: -55px; }
+.playful-portfolio .play-idea-burst i:nth-child(2) { --burst-x: -45px; --burst-y: -85px; }
+.playful-portfolio .play-idea-burst i:nth-child(3) { --burst-x: 15px; --burst-y: -80px; }
+.playful-portfolio .play-idea-burst i:nth-child(4) { --burst-x: 75px; --burst-y: -60px; }
+.playful-portfolio .play-idea-burst i:nth-child(5) { --burst-x: 95px; --burst-y: -10px; }
+.playful-portfolio .play-idea-burst i:nth-child(6) { --burst-x: 80px; --burst-y: 55px; }
+.playful-portfolio .play-idea-burst i:nth-child(7) { --burst-x: 25px; --burst-y: 80px; }
+.playful-portfolio .play-idea-burst i:nth-child(8) { --burst-x: -45px; --burst-y: 75px; }
+.playful-portfolio .play-idea-burst i:nth-child(9) { --burst-x: -85px; --burst-y: 40px; }
+.playful-portfolio .play-idea-burst i:nth-child(10) { --burst-x: -110px; --burst-y: -10px; }
+.playful-portfolio .play-idea-burst i:nth-child(11) { --burst-x: -60px; --burst-y: -30px; }
+.playful-portfolio .play-idea-burst i:nth-child(12) { --burst-x: 40px; --burst-y: -40px; }
+.playful-portfolio .play-idea-burst i:nth-child(13) { --burst-x: 50px; --burst-y: 30px; }
+.playful-portfolio .play-idea-burst i:nth-child(14) { --burst-x: -30px; --burst-y: 40px; }
+.playful-portfolio .play-idea-burst i:nth-child(15) { --burst-x: -70px; --burst-y: 65px; }
+.playful-portfolio .play-idea-burst i:nth-child(16) { --burst-x: 65px; --burst-y: -75px; }
+
+/* --- Dual Animated Marquee Ribbon --- */
+.playful-portfolio .play-ribbon-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  border-block: 2.5px solid var(--play-ink);
+  background: var(--play-ink);
+}
+
+.playful-portfolio .play-ribbon {
+  padding: 16px 0;
+  overflow: hidden;
+  background: var(--play-lime);
+  color: var(--play-ink);
+}
+
+.playful-portfolio .play-ribbon-top {
+  background: var(--play-lime);
+  border-bottom: 2px solid var(--play-ink);
+}
+
+.playful-portfolio .play-ribbon-bottom {
+  background: var(--play-cyan);
+}
+
+.playful-portfolio .play-ribbon-track {
+  display: flex;
+  width: max-content;
+  animation: play-marquee 24s linear infinite;
+}
+
+.playful-portfolio .play-ribbon-reverse {
+  animation: play-marquee-reverse 26s linear infinite;
+}
+
+.playful-portfolio .play-ribbon-group {
+  display: flex;
+  align-items: center;
+  gap: 37px;
+  padding-inline: 18px;
+  font: 900 clamp(16px, 2.1vw, 26px)/1.2 var(--font-display);
+  letter-spacing: -.025em;
+  white-space: nowrap;
+}
+
+.playful-portfolio .play-ribbon:hover .play-ribbon-track {
+  animation-play-state: paused;
+}
+
+.playful-portfolio .play-ribbon span[aria-hidden] {
+  font: 35px/1 Arial, sans-serif;
+  color: var(--play-coral);
+}
+
+/* --- Section Headings --- */
+.playful-portfolio .play-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 45px;
+}
+
+.playful-portfolio .play-serif-word {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -.065em;
+  color: var(--play-purple);
+}
+
+.playful-portfolio .play-side-note {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 30px 4px 0;
+  transform: rotate(-5deg);
+  transition: transform .3s ease;
+}
+
+.playful-portfolio .play-side-note:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.playful-portfolio .play-side-note > span { font-size: 60px; line-height: 1; color: var(--play-coral); }
+.playful-portfolio .play-side-note p { margin: 0; font-size: 16px; font-style: italic; font-weight: 600; }
+
+/* --- Projects Section --- */
+.playful-portfolio .play-project-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.playful-portfolio .play-filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.playful-portfolio .play-filter-list button {
+  min-height: 43px;
+  padding: 8px 18px;
+  border: 2px solid var(--play-ink);
+  border-radius: 30px;
+  background: transparent;
+  color: var(--play-ink);
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 var(--play-ink);
+  transition: transform .18s ease, background-color .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.playful-portfolio .play-filter-list button:hover {
+  background: var(--play-yellow);
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-filter-list button.is-selected {
+  background: var(--play-ink);
+  color: var(--play-paper);
+  box-shadow: 3px 3px 0 var(--play-coral);
+}
+
+.playful-portfolio .play-project-count {
+  margin: 0;
+  flex-shrink: 0;
+  font: 800 11px/1.5 ui-monospace, monospace;
+}
+
+.playful-portfolio .play-project-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 2.5px solid var(--play-ink);
+  border-radius: 10px;
+  background: #f5b3a1;
+  box-shadow: 7px 7px 0 var(--play-ink);
+  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
+}
+
+.playful-portfolio .play-project-carousel { display: block; }
+.playful-portfolio .play-project-carousel .play-project-card { height: 100%; }
+
+.playful-portfolio .play-project-card:hover {
+  transform: translateY(-9px) rotate(-.6deg);
+  box-shadow: 12px 14px 0 var(--play-ink), 16px 18px 0 var(--play-pink);
+}
+
+.playful-portfolio .play-card-lilac { background: var(--play-lilac); }
+.playful-portfolio .play-card-lime { background: var(--play-lime); }
+
+.playful-portfolio .play-project-window { padding: 22px 22px 0; }
+
+.playful-portfolio .play-window-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 2px solid var(--play-ink);
+  border-bottom: 0;
+  border-radius: 7px 7px 0 0;
+  background: var(--play-paper);
+  font: 800 11px/1.4 ui-monospace, monospace;
+}
+
+.playful-portfolio .play-window-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.playful-portfolio .play-window-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--play-ink);
+  display: inline-block;
+  transition: transform .2s ease;
+}
+
+.playful-portfolio .play-project-card:hover .play-window-dots i {
+  transform: scale(1.2);
+}
+
+.playful-portfolio .dot-red { background: #ff5f56; }
+.playful-portfolio .dot-yellow { background: #ffbd2e; }
+.playful-portfolio .dot-green { background: #27c93f; }
+
+.playful-portfolio .play-window-slug {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 800;
+}
+
+.playful-portfolio .play-project-preview {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 2px solid var(--play-ink);
+  background: #fffefa;
+}
+
+.playful-portfolio .play-live-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  padding: 4px 10px;
+  border: 1.5px solid var(--play-ink);
+  border-radius: 4px;
+  background: var(--play-lime);
+  font: 800 9px/1.4 ui-monospace, monospace;
+  letter-spacing: .05em;
+  box-shadow: 2px 2px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-project-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform .5s cubic-bezier(.2,.8,.2,1);
+}
+
+.playful-portfolio .play-project-card:hover .play-project-preview img {
+  transform: scale(1.06);
+}
+
+.playful-portfolio .play-project-preview.play-project-icon img {
+  width: 48%;
+  height: 72%;
+}
+
+.playful-portfolio .play-project-placeholder {
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  background-image: linear-gradient(#24232210 1px, transparent 1px), linear-gradient(90deg, #24232210 1px, transparent 1px);
+  background-size: 25px 25px;
+}
+
+.playful-portfolio .play-project-placeholder > span:first-child { font: 900 50px/1 ui-monospace, monospace; color: var(--play-coral); }
+.playful-portfolio .play-project-placeholder strong { font-size: 17px; overflow-wrap: anywhere; }
+.playful-portfolio .play-project-placeholder > span:last-child { font: 9px/1.5 ui-monospace, monospace; letter-spacing: .08em; }
+
+.playful-portfolio .play-project-copy {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 18px 24px 24px;
+}
+
+.playful-portfolio .play-project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font: 800 11px/1.5 ui-monospace, monospace;
+  text-transform: uppercase;
+}
+
+.playful-portfolio .play-project-number {
+  display: grid;
+  place-items: center;
+  flex: 0 0 35px;
+  min-height: 35px;
+  border: 2px solid var(--play-ink);
+  border-radius: 50%;
+  font-weight: 900;
+  background: var(--play-paper);
+}
+
+.playful-portfolio .play-project-copy h3 {
+  font-size: 30px;
+  line-height: 1.12;
+  letter-spacing: -.055em;
+  overflow-wrap: anywhere;
+}
+
+.playful-portfolio .play-project-copy > p {
+  margin: 14px 0 18px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.playful-portfolio .play-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: auto;
+  padding-bottom: 23px;
+}
+
+.playful-portfolio .play-tech-tags span {
+  padding: 4px 10px;
+  border: 1.5px solid var(--play-ink);
+  border-radius: 4px;
+  font: 800 10px/1.4 ui-monospace, monospace;
+  background: var(--play-paper);
+  transition: transform .2s ease, background-color .2s ease;
+}
+
+.playful-portfolio .play-tech-tags span:hover {
+  transform: translateY(-3px) rotate(2deg) scale(1.05);
+  background: var(--play-yellow);
+}
+
+.playful-portfolio .play-project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding-top: 17px;
+  border-top: 2px solid #24232240;
+}
+
+.playful-portfolio .play-project-actions .play-button {
+  min-height: 45px;
+  padding: 10px 13px;
+  font-size: 12px;
+}
+
+.playful-portfolio .play-project-actions > :is(.play-button, .play-repo-menu) {
+  flex: 1 1 145px;
+  min-width: 0;
+}
+
+.playful-portfolio .play-project-actions > .play-button { justify-content: space-between; }
+.playful-portfolio .play-repo-menu { position: relative; }
+.playful-portfolio .play-repo-menu summary { width: 100%; list-style: none; justify-content: space-between; cursor: pointer; }
+.playful-portfolio .play-repo-menu summary::-webkit-details-marker { display: none; }
+
+.playful-portfolio .play-repo-menu[open] summary {
+  background: var(--play-ink);
+  color: var(--play-paper);
+  box-shadow: 2px 2px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-repo-panel {
+  position: absolute;
+  z-index: 8;
+  left: 0;
+  bottom: calc(100% + 9px);
+  width: min(270px, 78vw);
+  padding: 6px;
+  border: 2.5px solid var(--play-ink);
+  border-radius: 7px;
+  background: var(--play-paper);
+  box-shadow: 6px 6px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-repo-panel a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 1.5px solid transparent;
+  font-size: 11px;
+  font-weight: 850;
+  overflow-wrap: anywhere;
+}
+
+.playful-portfolio .play-repo-panel a:hover {
+  border-color: var(--play-ink);
+  background: var(--play-lime);
+}
+
+.playful-portfolio .play-empty {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  grid-column: 1 / -1;
+  padding: 36px;
+  border: 2.5px dashed var(--play-ink);
+  border-radius: 10px;
+  background: #fffdf7a0;
+}
+
+.playful-portfolio .play-empty > span { flex-shrink: 0; font: 800 45px/1 ui-monospace, monospace; color: var(--play-coral); }
+.playful-portfolio .play-empty h3 { font-size: 24px; letter-spacing: -.035em; }
+.playful-portfolio .play-empty p { max-width: 580px; margin: 9px 0 0; font-size: 15px; }
+
+/* --- About Section ("El Humano Detrás") --- */
+.playful-portfolio .play-about {
+  background: var(--play-lilac);
+  border-block: 2.5px solid var(--play-ink);
+}
+
+.playful-portfolio .play-about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 90px;
+}
+
+.playful-portfolio .play-about-heading { position: relative; }
+.playful-portfolio .play-about h2 { font-size: clamp(48px, 5.5vw, 73px); }
+
+.playful-portfolio .play-underlined {
+  text-decoration: underline;
+  text-decoration-color: var(--play-paper);
+  text-decoration-thickness: 6px;
+  text-underline-offset: 10px;
+}
+
+.playful-portfolio .play-about-flower {
+  display: inline-block;
+  margin-top: 30px;
+  font: 130px/1 Arial, sans-serif;
+  color: var(--play-yellow);
+  -webkit-text-stroke: 2.5px var(--play-ink);
+  transform: rotate(-12deg);
+  animation: play-spin-slow 20s linear infinite;
+}
+
+.playful-portfolio .play-about-caption {
+  display: inline-block;
+  margin-left: 24px;
+  vertical-align: 20px;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 600;
+  transform: rotate(-5deg);
+}
+
+.playful-portfolio .play-fun-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.playful-portfolio .play-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  padding: 8px 16px;
+  border: 2px solid var(--play-ink);
+  border-radius: 30px;
+  background: var(--play-paper);
+  box-shadow: 3px 3px 0 var(--play-ink);
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform .2s ease;
+}
+
+.playful-portfolio .play-stat-chip:hover {
+  transform: scale(1.06) rotate(-1.5deg);
+}
+
+.playful-portfolio .play-stat-chip span { font-size: 16px; }
+
+.playful-portfolio .play-about-copy { padding-top: 20px; }
+.playful-portfolio .play-about-copy > p { margin: 0 0 20px; font-size: 15px; line-height: 1.75; }
+.playful-portfolio .play-about-copy .play-big-copy { font-size: 24px; line-height: 1.45; letter-spacing: -.03em; margin-bottom: 22px; }
+.playful-portfolio .play-big-copy strong { font-weight: 850; color: var(--play-purple); }
+
+.playful-portfolio .play-education-note {
+  position: relative;
+  margin-top: 35px;
+  padding: 25px 28px;
+  background: var(--play-paper);
+  border: 2px solid var(--play-ink);
+  box-shadow: 6px 6px 0 var(--play-ink);
+  transform: rotate(2deg);
+  transition: transform .2s ease;
+}
+
+.playful-portfolio .play-education-note:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.playful-portfolio .play-mini-tape {
+  position: absolute;
+  top: -13px;
+  right: 35%;
+  height: 26px;
+  width: 95px;
+  background: #d2ef7acc;
+  transform: rotate(-5deg);
+  border-inline: 1.5px dashed var(--play-ink);
+}
+
+.playful-portfolio .play-stamp-icon {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  font-size: 24px;
+  color: var(--play-coral);
+}
+
+.playful-portfolio .play-note-kicker { margin: 0 0 16px; font: 800 10px/1.5 ui-monospace, monospace; }
+.playful-portfolio .play-education-note > div + div { margin-top: 15px; padding-top: 14px; border-top: 1.5px dashed #a6a093; }
+.playful-portfolio .play-education-note strong { display: block; font-size: 15px; font-weight: 850; }
+.playful-portfolio .play-education-note > div > span { display: block; margin-top: 3px; font-size: 12px; font-weight: 650; }
+
+/* --- Experience Section --- */
+.playful-portfolio .play-section-intro { margin: 0 0 8px; font-size: 16px; font-weight: 600; }
+
+.playful-portfolio .play-journey {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.playful-portfolio .play-journey-card {
+  position: relative;
+  display: flex;
+  gap: 19px;
+  align-items: flex-start;
+  padding: 28px 28px 65px;
+  border: 2.5px solid var(--play-ink);
+  border-radius: 8px;
+  transition: transform .25s cubic-bezier(.2,.8,.2,1), background-color .25s ease, box-shadow .25s ease;
+}
+
+.playful-portfolio .play-journey-card:hover {
+  transform: translateY(-6px) rotate(-.5deg);
+  background: #fffdf7;
+  box-shadow: 7px 8px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-journey-card:first-child {
+  background: var(--play-lime);
+  box-shadow: 6px 6px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-journey-index {
+  display: grid;
+  flex: 0 0 46px;
+  place-items: center;
+  width: 46px;
+  min-height: 46px;
+  border: 2px solid var(--play-ink);
+  border-radius: 50%;
+  font: 800 16px/1 ui-monospace, monospace;
+  background: var(--play-paper);
+}
+
+.playful-portfolio .play-journey-card:first-child .play-journey-index {
+  background: var(--play-ink);
+  color: var(--play-lime);
+  font-size: 22px;
+}
+
+.playful-portfolio .play-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 17px;
+  font: 800 11px/1.65 ui-monospace, monospace;
+  letter-spacing: .015em;
+}
+
+.playful-portfolio .play-live-dot-sm {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: play-pulse-green 1.8s infinite;
+}
+
+.playful-portfolio .play-journey-card h3 { font-size: 28px; letter-spacing: -.055em; line-height: 1.15; }
+.playful-portfolio .play-role { margin: 20px 0 10px; font-size: 13px; font-weight: 850; color: var(--play-purple); }
+.playful-portfolio .play-journey-card p:last-child { margin: 0; font-size: 13px; line-height: 1.75; }
+
+.playful-portfolio .play-journey-label {
+  position: absolute;
+  left: 26px;
+  bottom: 21px;
+  padding: 3px 8px;
+  border: 1px solid var(--play-ink);
+  border-radius: 3px;
+  background: var(--play-paper);
+  font: 800 9px/1.5 ui-monospace, monospace;
+  letter-spacing: .08em;
+}
+
+.playful-portfolio .play-toolbox { margin-top: 62px; padding-top: 34px; border-top: 2px solid var(--play-ink); }
+
+.playful-portfolio .play-toolbox-title {
+  display: flex;
+  align-items: center;
+  gap: 19px;
+  margin-bottom: 24px;
+}
+
+.playful-portfolio .play-toolbox-title > span {
+  font: 55px/1 Arial, sans-serif;
+  color: var(--play-coral);
+  -webkit-text-stroke: 1.5px var(--play-ink);
+  animation: play-scribble-spin 12s linear infinite;
+}
+
+.playful-portfolio .play-toolbox-title .play-kicker { margin-bottom: 4px; font-size: 10px; }
+.playful-portfolio .play-toolbox h3 { font-size: 26px; letter-spacing: -.055em; }
+
+.playful-portfolio .play-toolbox-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.playful-portfolio .play-toolbox-tags > span {
+  padding: 9px 16px;
+  border: 2px solid var(--play-ink);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  background: #fffdf7;
+  box-shadow: 3px 3px 0 var(--play-ink);
+  transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s ease, background-color .2s ease;
+}
+
+.playful-portfolio .play-toolbox-tags > span:hover {
+  transform: translateY(-6px) rotate(-3deg) scale(1.08);
+  box-shadow: 5px 6px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-toolbox-tags > span:nth-child(4n + 1) { background: var(--play-lilac); transform: rotate(-1.5deg); }
+.playful-portfolio .play-toolbox-tags > span:nth-child(4n + 2) { background: var(--play-cyan); transform: rotate(1.5deg); }
+.playful-portfolio .play-toolbox-tags > span:nth-child(4n + 3) { background: var(--play-lime); transform: rotate(2deg); }
+.playful-portfolio .play-toolbox-tags > span:nth-child(4n + 4) { background: var(--play-yellow); transform: rotate(-1deg); }
+
+/* --- Certifications Section --- */
+.playful-portfolio .play-certifications {
+  border-block: 2.5px solid var(--play-ink);
+  background: #ece8df;
+  background-image: radial-gradient(#24232225 1.2px, transparent 1.2px);
+  background-size: 16px 16px;
+}
+
+.playful-portfolio .play-certification-count {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+.playful-portfolio .play-certification-count strong { font: 900 58px/1 var(--font-display); letter-spacing: -.075em; color: var(--play-purple); }
+.playful-portfolio .play-certification-count span { font: 800 10px/1.65 ui-monospace, monospace; }
+
+.playful-portfolio .play-stamp-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: stretch; }
+
+.playful-portfolio .play-stamp {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 18px;
+  border: 8px dotted #ece8df;
+  outline: 2px solid var(--play-ink);
+  outline-offset: -8px;
+  background: var(--play-lilac);
+  background-clip: padding-box;
+  filter: drop-shadow(5px 6px 0 rgb(36 35 34 / 20%));
+  transition: translate .3s cubic-bezier(.2,.8,.2,1), filter .3s ease, transform .3s ease;
+}
+
+.playful-portfolio .play-certification-carousel { display: block; }
+.playful-portfolio .play-certification-carousel .play-stamp { height: 100%; }
+
+.playful-portfolio .play-stamp:hover {
+  translate: 0 -10px;
+  filter: drop-shadow(10px 14px 0 rgb(36 35 34 / 28%));
+}
+
+.playful-portfolio .play-stamp:nth-child(3n + 1) { transform: rotate(-1deg); }
+.playful-portfolio .play-stamp:nth-child(3n + 2) { transform: rotate(1deg); }
+
+.playful-portfolio .play-stamp-gold-seal {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  padding: 3px 8px;
+  border: 1.5px solid var(--play-ink);
+  border-radius: 20px;
+  background: var(--play-yellow);
+  font: 900 8px/1 ui-monospace, monospace;
+  letter-spacing: .06em;
+  box-shadow: 2px 2px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-stamp-lime { background-color: var(--play-lime); }
+.playful-portfolio .play-stamp-coral { background-color: #f5b3a1; }
+
+.playful-portfolio .play-stamp-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 13px;
+  font: 800 10px/1.5 ui-monospace, monospace;
+  text-transform: uppercase;
+}
+
+.playful-portfolio .play-stamp-top > span:first-child { overflow-wrap: anywhere; }
+.playful-portfolio .play-stamp-top > span:last-child { flex-shrink: 0; }
+
+.playful-portfolio .play-stamp-cover {
+  display: grid;
+  place-items: center;
+  position: relative;
+  aspect-ratio: 4 / 2.6;
+  overflow: hidden;
+  border: 2px solid var(--play-ink);
+  background: #fffdf7;
+}
+
+.playful-portfolio .play-stamp-cover img { height: 100%; width: 100%; object-fit: contain; }
+
+.playful-portfolio .play-stamp-seal {
+  position: absolute;
+  left: 11px;
+  top: 19px;
+  font: 100px/1 Arial, sans-serif;
+  color: var(--play-coral);
+  -webkit-text-stroke: 1px var(--play-ink);
+}
+
+.playful-portfolio .play-stamp-copy { flex: 1; padding: 20px 0 18px; }
+.playful-portfolio .play-stamp-copy .play-date { margin-bottom: 8px; font-size: 10px; }
+.playful-portfolio .play-stamp h3 { font-size: 21px; line-height: 1.2; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.playful-portfolio .play-stamp-copy > p:not(.play-date) { margin: 10px 0 0; font-size: 13px; line-height: 1.6; }
+
+.playful-portfolio .play-stamp-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 10px;
+  border-top: 1.5px dashed var(--play-ink);
+}
+
+.playful-portfolio .play-stamp-actions a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 42px;
+  gap: 14px;
+  font-size: 13px;
+  font-weight: 850;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color .2s ease;
+}
+
+.playful-portfolio .play-stamp-actions a:hover { color: var(--play-purple); }
+.playful-portfolio .play-stamp-actions .play-stamp-verify { min-height: 35px; font-size: 11px; font-weight: 700; }
+
+/* --- Contact Section --- */
+.playful-portfolio .play-contact {
+  background: var(--play-coral);
+  padding-bottom: 72px;
+}
+
+.playful-portfolio .play-contact-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.playful-portfolio .play-contact-top .play-kicker { max-width: 360px; font-size: 11px; }
+
+.playful-portfolio .play-contact-smile-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.playful-portfolio .play-contact-smile {
+  display: block;
+  padding-right: 15px;
+  font: 115px/.85 Arial, sans-serif;
+  animation: play-smile-wave 2.8s ease-in-out infinite;
+  cursor: pointer;
+  transition: transform .3s ease;
+}
+
+.playful-portfolio .play-contact-smile:hover {
+  transform: scale(1.2) rotate(15deg);
+}
+
+.playful-portfolio .play-speech-bubble {
+  position: absolute;
+  right: 100%;
+  top: 10px;
+  white-space: nowrap;
+  padding: 6px 14px;
+  border: 2px solid var(--play-ink);
+  border-radius: 20px;
+  background: var(--play-paper);
+  font: 800 11px/1.4 ui-monospace, monospace;
+  box-shadow: 3px 3px 0 var(--play-ink);
+  transform: rotate(-6deg);
+  animation: play-float-1 4s ease-in-out infinite;
+}
+
+.playful-portfolio .play-contact h2 { font-size: clamp(62px, 8vw, 110px); line-height: 1; }
+
+.playful-portfolio .play-contact-word { position: relative; display: inline-block; }
+.playful-portfolio .play-contact-word svg {
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  fill: none;
+  stroke: var(--play-paper);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.playful-portfolio .play-contact-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 42px;
+  margin-top: 58px;
+}
+
+.playful-portfolio .play-contact-bottom > div > p:first-child { margin: 0 0 25px; font-size: 16px; font-weight: 600; line-height: 1.7; }
+
+.playful-portfolio .play-email {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--play-ink);
+  font-size: clamp(18px, 2.5vw, 31px);
+  font-weight: 900;
+  letter-spacing: -.04em;
+  overflow-wrap: anywhere;
+  transition: color .2s ease, border-color .2s ease;
+}
+
+.playful-portfolio .play-email:hover {
+  color: var(--play-paper);
+  border-color: var(--play-paper);
+}
+
+.playful-portfolio .play-copy-status { min-height: 24px; margin: 12px 0 0; font-size: 13px; font-weight: 750; }
+
+.playful-portfolio .play-contact-actions { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
+.playful-portfolio .play-contact-actions .play-button-dark { box-shadow: 4px 4px 0 var(--play-paper); }
+.playful-portfolio .play-contact-actions .play-text-link { justify-content: center; }
+
+/* --- Footer --- */
+.playful-portfolio .play-footer {
+  padding-block: 32px;
+  border-top: 2.5px solid var(--play-ink);
+  background: var(--play-paper);
+}
+
+.playful-portfolio .play-footer > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.playful-portfolio .play-footer-signature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -.05em;
+}
+
+.playful-portfolio .play-footer-signature span { font: 30px/1 Arial, sans-serif; color: var(--play-coral); }
+.playful-portfolio .play-footer p { margin: 0; font-size: 12px; font-weight: 600; line-height: 1.7; }
+.playful-portfolio .play-footer .play-text-link { font-size: 13px; }
+
+.playful-portfolio .play-rocket-link .play-rocket-icon {
+  display: inline-block;
+  transition: transform .3s cubic-bezier(.175, .885, .32, 1.275);
+}
+
+.playful-portfolio .play-rocket-link:hover .play-rocket-icon {
+  transform: translateY(-8px) scale(1.3) rotate(-15deg);
+}
+
+/* --- Project Dialog Overrides --- */
+.playful-portfolio .project-dialog { border: 2.5px solid var(--play-ink); border-radius: 10px; box-shadow: 10px 10px 0 var(--play-ink); }
+.playful-portfolio .project-dialog::backdrop { background: rgb(36 35 34 / 75%); }
+.playful-portfolio .project-dialog-head { background: var(--play-lilac); border-bottom: 2.5px solid var(--play-ink); }
+.playful-portfolio .project-dialog-head h3 { font-size: 29px; font-weight: 900; letter-spacing: -.05em; }
+.playful-portfolio .project-dialog .dialog-close { min-height: 44px; border: 2px solid var(--play-ink); background: var(--play-paper); border-radius: 6px; box-shadow: 3px 3px 0 var(--play-ink); }
+.playful-portfolio .project-dialog .dialog-close:hover { background: var(--play-ink); color: var(--play-paper); }
+.playful-portfolio .project-dialog .technology-group { background: var(--play-paper); }
+
+/* --- Reveal Scroll Animation --- */
+.playful-portfolio .play-reveal {
+  opacity: 0;
+  translate: 0 34px;
+  rotate: .7deg;
+  transition: opacity .68s ease var(--play-reveal-delay, 0ms), translate .68s cubic-bezier(.16,1,.3,1) var(--play-reveal-delay, 0ms), rotate .68s cubic-bezier(.16,1,.3,1) var(--play-reveal-delay, 0ms);
+}
+.playful-portfolio .play-reveal.is-play-visible { opacity: 1; translate: 0 0; rotate: 0deg; }
+
+/* --- Keyframes --- */
+@keyframes play-pop-in {
+  from { opacity: 0; transform: translateY(25px) rotate(1deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+@keyframes play-photo-develop {
+  from { opacity: 0; filter: grayscale(1) contrast(.7) brightness(1.35); clip-path: inset(0 0 100% 0); }
+  to { opacity: 1; filter: none; clip-path: inset(0); }
+}
+@keyframes play-draw-line { to { stroke-dashoffset: 0; } }
+@keyframes play-star-dance {
+  0%, 100% { transform: translateY(0) rotate(-15deg) scale(1); }
+  50% { transform: translateY(-12px) rotate(4deg) scale(1.08); }
+}
+@keyframes play-star-spin { to { transform: rotate(1turn); } }
+@keyframes play-scribble-spin { to { transform: rotate(1turn); } }
+@keyframes play-arrow-nudge {
+  0%, 100% { transform: translateX(-3px); }
+  50% { transform: translateX(5px); }
+}
+@keyframes play-button-spin { to { transform: rotate(1turn); } }
+@keyframes play-idea-swap {
+  0% { opacity: 0; transform: translateY(12px) rotate(1deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0); }
+}
+@keyframes play-face-flip {
+  50% { transform: rotate(15deg) scale(1.22); color: var(--play-coral); }
+}
+@keyframes play-confetti {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--burst-x), var(--burst-y)) rotate(320deg) scale(0.3); }
+}
+@keyframes play-marquee { to { transform: translateX(-50%); } }
+@keyframes play-marquee-reverse { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@keyframes play-smile-wave {
+  0%, 100% { transform: rotate(14deg) translateY(0); }
+  50% { transform: rotate(-2deg) translateY(-9px); }
+}
+@keyframes play-spin-slow { to { transform: rotate(360deg); } }
+@keyframes play-float-1 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+@keyframes play-float-2 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(10px) rotate(-4deg); }
+}
+@keyframes play-pulse-glow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.15); }
+}
+@keyframes play-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes play-pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+@keyframes play-hologram-shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes play-machine-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px) rotate(-1deg); }
+  40% { transform: translateX(6px) rotate(1deg); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+@keyframes play-eq-wave {
+  0% { height: 30%; }
+  100% { height: 100%; }
+}
+
+/* --- Media Queries --- */
+@media (min-width: 1500px) {
+  .playful-portfolio .play-hero { padding-top: 70px; padding-bottom: 80px; }
+}
+
+@media (max-width: 1050px) {
+  .playful-portfolio .play-wrap { padding-inline: 32px; }
+  .playful-portfolio .play-hero { column-gap: 12px; }
+  .playful-portfolio .play-hero h1 { font-size: clamp(65px, 8.6vw, 89px); }
+  .playful-portfolio .play-collage { min-height: 455px; }
+  .playful-portfolio .play-polaroid { inset: 48px 24px 50px 35px; }
+  .playful-portfolio .play-collage-star { left: 0; top: 20px; font-size: 90px; }
+  .playful-portfolio .play-round-sticker { top: 267px; right: -7px; width: 95px; height: 95px; font-size: 9px; }
+  .playful-portfolio .play-round-sticker strong { font-size: 38px; }
+  .playful-portfolio .play-note { width: 207px; padding: 14px 15px; }
+  .playful-portfolio .play-polaroid figcaption strong { font-size: 17px; }
+  .playful-portfolio .play-polaroid figcaption > span { max-width: 70px; font-size: 8px; }
+  .playful-portfolio .play-about-layout { gap: 50px; }
+  .playful-portfolio .play-about-caption { display: block; margin: 10px 0 0; }
+  .playful-portfolio .play-journey-card { display: block; }
+  .playful-portfolio .play-journey-index { margin-bottom: 20px; }
+  .playful-portfolio .play-stamp-grid { gap: 18px; }
+  .playful-portfolio .play-stamp { padding: 12px; }
+  .playful-portfolio .play-stamp h3 { font-size: 19px; }
+}
+
+@media (max-width: 760px) {
+  .playful-portfolio .play-wrap { padding-inline: 25px; }
+  .playful-portfolio .play-section { padding-block: 68px; scroll-margin-top: 160px; }
+  .playful-portfolio .play-hero { grid-template-columns: 1fr; padding-top: 35px; padding-bottom: 58px; scroll-margin-top: 160px; }
+  .playful-portfolio .play-hero-copy { max-width: 550px; }
+  .playful-portfolio .play-hero h1 { font-size: clamp(70px, 13vw, 96px); }
+  .playful-portfolio .play-hero-description { max-width: 440px; }
+  .playful-portfolio .play-collage { width: min(420px, 100%); min-height: 450px; justify-self: center; margin-top: 40px; }
+  .playful-portfolio .play-polaroid { inset: 37px 43px 40px; }
+  .playful-portfolio .play-collage-star { top: 0; left: 10px; font-size: 102px; }
+  .playful-portfolio .play-orbit-word { right: 20px; top: -10px; font-size: 13px; }
+  .playful-portfolio .play-round-sticker { right: 6px; top: 253px; width: 105px; height: 105px; }
+  .playful-portfolio .play-polaroid figcaption strong { font-size: 19px; }
+  .playful-portfolio .play-polaroid figcaption > span { max-width: 84px; font-size: 8px; }
+  .playful-portfolio .play-note { bottom: 0; left: 7px; }
+  .playful-portfolio .play-collage-scribble { bottom: -19px; right: 63px; font-size: 64px; }
+  .playful-portfolio .play-idea-machine { grid-template-columns: 1fr auto; gap: 17px; margin-top: 58px; padding: 18px; }
+  .playful-portfolio .play-idea-label { grid-column: 1; }
+  .playful-portfolio .play-idea-output { grid-column: 1 / -1; grid-row: 2; padding: 15px 0 0; border-left: 0; border-top: 2px solid #b4aea2; font-size: 14px; }
+  .playful-portfolio .play-idea-button { grid-column: 2; grid-row: 1; }
+  .playful-portfolio .play-idea-counter { right: 5px; font-size: 9px; }
+  .playful-portfolio .play-ribbon { padding-block: 13px; }
+  .playful-portfolio .play-ribbon-group { gap: 24px; padding-inline: 12px; font-size: 18px; }
+  .playful-portfolio .play-ribbon span[aria-hidden] { font-size: 29px; }
+  .playful-portfolio .play-section-heading { align-items: flex-start; flex-direction: column; gap: 24px; margin-bottom: 31px; }
+  .playful-portfolio h2 { font-size: clamp(45px, 8.2vw, 63px); }
+  .playful-portfolio .play-kicker { font-size: 9px; margin-bottom: 18px; }
+  .playful-portfolio .play-hero .play-kicker { font-size: 10px; }
+  .playful-portfolio .play-side-note { align-self: flex-end; padding: 0 12px 0 0; gap: 10px; }
+  .playful-portfolio .play-side-note > span { font-size: 40px; }
+  .playful-portfolio .play-side-note p { font-size: 13px; }
+  .playful-portfolio .play-project-toolbar { align-items: flex-start; flex-direction: column; gap: 15px; }
+  .playful-portfolio .play-filter-list button { min-height: 41px; padding-inline: 13px; }
+  .playful-portfolio .play-project-grid { grid-template-columns: 1fr; gap: 30px; }
+  .playful-portfolio .play-project-window { padding: 18px 18px 0; }
+  .playful-portfolio .play-project-copy { padding: 17px 20px 23px; }
+  .playful-portfolio .play-project-copy h3 { font-size: 29px; }
+  .playful-portfolio .play-project-placeholder > span:first-child { font-size: 43px; }
+  .playful-portfolio .play-empty { align-items: flex-start; padding: 25px; gap: 18px; }
+  .playful-portfolio .play-empty > span { font-size: 30px; }
+  .playful-portfolio .play-empty h3 { font-size: 21px; }
+  .playful-portfolio .play-empty p { font-size: 14px; }
+  .playful-portfolio .play-about-layout { grid-template-columns: 1fr; gap: 30px; }
+  .playful-portfolio .play-about h2 { font-size: clamp(49px, 9.5vw, 66px); }
+  .playful-portfolio .play-about-flower { position: absolute; right: 4px; bottom: -5px; margin: 0; font-size: 102px; }
+  .playful-portfolio .play-about-caption { margin-top: 30px; font-size: 12px; }
+  .playful-portfolio .play-about-copy { padding-top: 8px; }
+  .playful-portfolio .play-about-copy .play-big-copy { font-size: 23px; }
+  .playful-portfolio .play-education-note { margin: 30px 5px 0 0; padding: 24px; }
+  .playful-portfolio .play-journey { grid-template-columns: 1fr; gap: 24px; }
+  .playful-portfolio .play-journey-card { display: flex; padding: 23px 20px 55px; gap: 17px; }
+  .playful-portfolio .play-journey-index { flex-basis: 37px; width: 37px; min-height: 37px; font-size: 12px; }
+  .playful-portfolio .play-journey-card h3 { font-size: 27px; }
+  .playful-portfolio .play-date { font-size: 9px; }
+  .playful-portfolio .play-toolbox { margin-top: 46px; }
+  .playful-portfolio .play-toolbox-tags { gap: 8px; }
+  .playful-portfolio .play-toolbox-tags > span { padding: 8px 12px; font-size: 12px; }
+  .playful-portfolio .play-stamp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+  .playful-portfolio .play-stamp { padding: 13px; }
+  .playful-portfolio .play-certification-count { align-self: flex-end; }
+  .playful-portfolio .play-certification-count strong { font-size: 46px; }
+  .playful-portfolio .play-certification-count span { font-size: 9px; }
+  .playful-portfolio .play-contact-smile { padding-right: 0; font-size: 79px; }
+  .playful-portfolio .play-contact-top .play-kicker { max-width: 230px; }
+  .playful-portfolio .play-contact h2 { font-size: clamp(57px, 10.5vw, 79px); }
+  .playful-portfolio .play-contact-bottom { grid-template-columns: 1fr; margin-top: 39px; gap: 20px; }
+  .playful-portfolio .play-email { font-size: clamp(19px, 4.4vw, 27px); }
+  .playful-portfolio .play-contact-actions { align-items: flex-start; }
+  .playful-portfolio .play-contact-actions .play-button { min-width: 262px; justify-content: space-between; }
+  .playful-portfolio .play-contact-actions .play-text-link { justify-content: flex-start; }
+  .playful-portfolio .play-footer > div { flex-wrap: wrap; gap: 16px 24px; }
+  .playful-portfolio .play-footer p { order: 3; width: 100%; }
+  .playful-portfolio .project-dialog-head h3 { font-size: 24px; }
+}
+
+@media (max-width: 460px) {
+  .playful-portfolio .play-wrap { padding-inline: 21px; }
+  .playful-portfolio .play-hero h1 { font-size: clamp(58px, 15.4vw, 70px); }
+  .playful-portfolio .play-hero .play-kicker { font-size: 8px; gap: 7px; }
+  .playful-portfolio .play-tiny-star { font-size: 23px; }
+  .playful-portfolio .play-hero-description { font-size: 15px; }
+  .playful-portfolio .play-hero-actions { gap: 13px; }
+  .playful-portfolio .play-hero-actions .play-button { font-size: 13px; padding-inline: 15px; gap: 13px; }
+  .playful-portfolio .play-hero-actions .play-text-link { font-size: 13px; }
+  .playful-portfolio .play-collage { min-height: 412px; margin-top: 28px; }
+  .playful-portfolio .play-polaroid { inset: 38px 24px 43px; }
+  .playful-portfolio .play-polaroid figcaption strong { font-size: 18px; }
+  .playful-portfolio .play-polaroid figcaption > span { max-width: 70px; font-size: 8px; }
+  .playful-portfolio .play-round-sticker { right: -5px; top: 245px; width: 88px; height: 88px; font-size: 8px; }
+  .playful-portfolio .play-note { width: 198px; left: 0; bottom: 0; padding: 12px 14px; }
+  .playful-portfolio .play-note p { font-size: 12px; }
+  .playful-portfolio .play-collage-scribble { right: 35px; bottom: -21px; font-size: 57px; }
+  .playful-portfolio .play-orbit-word { top: 0; right: 2px; font-size: 12px; }
+  .playful-portfolio .play-collage-star { top: 7px; left: -6px; font-size: 82px; }
+  .playful-portfolio .play-idea-machine { padding: 15px; gap: 13px; }
+  .playful-portfolio .play-idea-label { gap: 7px; font-size: 8px; }
+  .playful-portfolio .play-idea-face { font-size: 37px; }
+  .playful-portfolio .play-idea-button { gap: 5px; padding: 7px 9px; font-size: 10px; }
+  .playful-portfolio .play-idea-button > span { font-size: 24px; }
+  .playful-portfolio .play-empty { flex-direction: column; padding: 24px; }
+  .playful-portfolio .play-about-flower { right: 0; bottom: -9px; font-size: 85px; }
+  .playful-portfolio .play-about h2 { font-size: 49px; }
+  .playful-portfolio .play-about-copy .play-big-copy { font-size: 22px; }
+  .playful-portfolio .play-journey-card { display: block; }
+  .playful-portfolio .play-journey-index { margin-bottom: 17px; }
+  .playful-portfolio .play-stamp-grid { grid-template-columns: 1fr; gap: 28px; }
+  .playful-portfolio .play-stamp { padding: 18px; }
+  .playful-portfolio .play-stamp h3 { font-size: 23px; }
+  .playful-portfolio .play-stamp-top { font-size: 10px; }
+  .playful-portfolio .play-stamp-copy > p:not(.play-date) { font-size: 13px; }
+  .playful-portfolio .play-contact h2 { font-size: clamp(46px, 12vw, 57px); }
+  .playful-portfolio .play-contact-top .play-kicker { max-width: 206px; font-size: 8px; }
+  .playful-portfolio .play-contact-smile { font-size: 64px; }
+  .playful-portfolio .play-contact-bottom > div > p:first-child { font-size: 14px; }
+  .playful-portfolio .play-email { gap: 5px; font-size: clamp(16px, 4.8vw, 21px); }
+  .playful-portfolio .play-footer-signature { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playful-portfolio *, .playful-portfolio *::before, .playful-portfolio *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .playful-portfolio .play-reveal { opacity: 1; translate: none; rotate: none; }
+}
+
+/* ==========================================================================
+   Playful GitHub Arcade Stats & Metrics Styles
+   ========================================================================== */
+.playful-portfolio .play-github-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.playful-portfolio .play-stat-box {
+  border: 2.5px solid var(--play-ink);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 5px 5px 0 var(--play-ink);
+  transition: transform 0.2s cubic-bezier(.2,.8,.2,1), box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.playful-portfolio .play-stat-box:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-box-yellow { background: var(--play-yellow, #fff066); }
+.playful-portfolio .play-box-pink { background: var(--play-pink, #ff9ebb); }
+.playful-portfolio .play-box-cyan { background: var(--play-cyan, #70e4ef); }
+.playful-portfolio .play-box-green { background: var(--play-lime, #ccff00); }
+
+.playful-portfolio .play-stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.playful-portfolio .play-stat-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.playful-portfolio .play-stat-tag {
+  font: 900 10px/1 ui-monospace, monospace;
+  letter-spacing: 0.1em;
+  background: var(--play-ink);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.playful-portfolio .play-stat-num {
+  font: 900 42px/1.05 ui-monospace, monospace;
+  color: var(--play-ink);
+  letter-spacing: -0.03em;
+}
+
+.playful-portfolio .play-stat-desc {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--play-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.playful-portfolio .play-lang-arcade-box {
+  margin-top: 28px;
+  border: 2.5px solid var(--play-ink);
+  border-radius: 12px;
+  background: var(--play-paper, #fbf9f4);
+  padding: 26px;
+  box-shadow: 6px 6px 0 var(--play-ink);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.playful-portfolio .play-lang-arcade-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.playful-portfolio .play-lang-arcade-top h3 {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0;
+  color: var(--play-ink);
+}
+
+.playful-portfolio .play-arcade-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--play-ink);
+  color: #fff;
+  font: 800 12px/1 ui-monospace, monospace;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.playful-portfolio .play-arcade-btn:hover {
+  background: var(--play-purple, #7c3aed);
+  transform: translateY(-2px);
+}
+
+.playful-portfolio .play-lang-arcade-bar {
+  height: 20px;
+  width: 100%;
+  border: 2.5px solid var(--play-ink);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  background: #eee;
+  box-shadow: 2px 2px 0 var(--play-ink);
+}
+
+.playful-portfolio .play-lang-arcade-seg {
+  height: 100%;
+  transition: width 0.6s ease;
+}
+
+.playful-portfolio .play-lang-arcade-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.playful-portfolio .play-lang-arcade-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.playful-portfolio .play-lang-arcade-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--play-ink);
+  display: inline-block;
+}
+
+.playful-portfolio .play-lang-arcade-name {
+  color: var(--play-ink);
+}
+
+.playful-portfolio .play-lang-arcade-pct {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  color: #555;
+}
+
+.playful-portfolio .play-repo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--play-lime, #ccff00);
+  border: 1.5px solid var(--play-ink);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font: 800 11px/1 ui-monospace, monospace;
+  color: var(--play-ink);
+  box-shadow: 1.5px 1.5px 0 var(--play-ink);
+}
+

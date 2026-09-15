@@ -1,0 +1,387 @@
+<main id="content" class="playful-portfolio" tabindex="-1">
+  <div class="play-ambient-shapes" aria-hidden="true">
+    <span class="play-shape shape-star-1">✳</span>
+    <span class="play-shape shape-star-2">✦</span>
+    <span class="play-shape shape-star-3">✷</span>
+    <span class="play-shape shape-spark-1">⚡</span>
+    <span class="play-shape shape-spark-2">✦</span>
+    <span class="play-shape shape-circle-1"></span>
+  </div>
+
+  <section class="play-hero play-wrap" id="inicio" aria-labelledby="play-hero-title">
+    <div class="play-hero-copy">
+      <div class="play-status-pill">
+        <span class="play-pulse-dot" aria-hidden="true"></span>
+        <span>DISPONIBLE PARA PROYECTOS PRO</span>
+      </div>
+      <p class="play-kicker"><span class="play-tiny-star" aria-hidden="true">✳</span> MATEO SILVA · HECHO EN COLOMBIA <span class="play-flag" aria-hidden="true">🇨🇴</span></p>
+      <h1 id="play-hero-title">Hago código.<br>Y cosas<br><span class="play-highlight">bacanas<svg viewBox="0 0 430 25" aria-hidden="true"><path d="M5 16C100 3 305 2 423 13M27 22C153 12 267 15 374 18" /></svg></span><span class="play-dot">.</span></h1>
+      <p class="play-hero-description">Soy Mateo, desarrollador full stack. Conecto ideas, interfaces y un montón de líneas de código para hacer que las cosas pasen.</p>
+      <div class="play-hero-actions">
+        <a class="play-button play-button-dark" href="#proyectos">Pasa a ver mis proyectos <span aria-hidden="true">↘</span></a>
+        <a class="play-text-link" href="#perfil">El humano detrás <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+
+    <div class="play-collage" aria-label="Mateo, fuera del molde" (pointermove)="moveCollage($event)" (pointerleave)="resetCollage($event)">
+      <span class="play-orbit-word" aria-hidden="true">un poquito fuera del molde ↴</span>
+      <span class="play-collage-star" aria-hidden="true">✳</span>
+      <span class="play-floating-badge play-badge-fresh" aria-hidden="true">100% CÓDIGO FRESCO ⚡</span>
+      <span class="play-floating-badge play-badge-stack" aria-hidden="true">FULL STACK DEV 🚀</span>
+      <figure class="play-polaroid">
+        <span class="play-tape" aria-hidden="true"></span>
+        <div class="play-portrait">
+          <div class="play-holographic-overlay" aria-hidden="true"></div>
+          @if (profileImage()) {
+            <img [src]="profileImage()" alt="Mateo Silva" fetchpriority="high">
+          } @else {
+            <span class="play-portrait-placeholder" aria-label="Mateo Silva">MS<span aria-hidden="true">:)</span></span>
+          }
+        </div>
+        <figcaption><strong>¡Ey, soy Mateo!</strong><span>Colombia / Full stack dev</span></figcaption>
+      </figure>
+      <span class="play-round-sticker" aria-hidden="true"><span>IDEAS</span><strong>→</strong><span>CÓDIGO</span></span>
+      <div class="play-note"><span aria-hidden="true">&lt;/&gt;</span><p>Detrás de cada pantalla,<br>hay algo por inventar.</p></div>
+      <span class="play-collage-scribble" aria-hidden="true">✷</span>
+    </div>
+
+    <div class="play-idea-machine" [class.is-mixing]="isMixingIdea()">
+      <div class="play-idea-header">
+        <div class="play-idea-label">
+          <span class="play-idea-face" aria-hidden="true">☺</span>
+          <div>
+            <span class="play-idea-title">LA MÁQUINA DE LOS «¿Y SI…?»</span>
+            <div class="play-soundwave" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+      <p class="play-idea-output" aria-live="polite" aria-atomic="true">{{ currentIdea() }}</p>
+      <button class="play-idea-button" type="button" (click)="mixIdea()" aria-label="Mezclar ideas y mostrar otra propuesta creativa"><span aria-hidden="true">↻</span> Mezclar ideas</button>
+      <span class="play-idea-counter" aria-live="polite">{{ ideasMixed() === 0 ? 'PRUÉBAME ↑' : ideasMixed() + (ideasMixed() === 1 ? ' IDEA MEZCLADA' : ' IDEAS MEZCLADAS') }}</span>
+      @if (isMixingIdea()) {
+        <span class="play-idea-burst" aria-hidden="true">
+          @for (particle of ideaBurst; track particle) { <i [style.--particle]="particle"></i> }
+        </span>
+      }
+    </div>
+  </section>
+
+  <div class="play-ribbon-wrapper" aria-label="Desarrollo web, backend, móvil e ideas con personalidad">
+    <div class="play-ribbon play-ribbon-top">
+      <div class="play-ribbon-track">
+        <div class="play-ribbon-group"><span>WEB</span><span aria-hidden="true">✳</span><span>BACKEND</span><span aria-hidden="true">✳</span><span>SPRING BOOT</span><span aria-hidden="true">✳</span><span>ANGULAR</span><span aria-hidden="true">✳</span><span>MÓVIL</span><span aria-hidden="true">✳</span><span>DOCKER</span><span aria-hidden="true">✳</span><span>IDEAS CON PERSONALIDAD</span><span aria-hidden="true">✳</span></div>
+        <div class="play-ribbon-group" aria-hidden="true"><span>WEB</span><span>✳</span><span>BACKEND</span><span>✳</span><span>SPRING BOOT</span><span>✳</span><span>ANGULAR</span><span>✳</span><span>MÓVIL</span><span>✳</span><span>DOCKER</span><span>✳</span><span>IDEAS CON PERSONALIDAD</span><span>✳</span></div>
+      </div>
+    </div>
+    <div class="play-ribbon play-ribbon-bottom">
+      <div class="play-ribbon-track play-ribbon-reverse">
+        <div class="play-ribbon-group"><span>⚡ 100% CÓDIGO FRESCO</span><span aria-hidden="true">✦</span><span>COLOMBIA 🚀</span><span aria-hidden="true">✦</span><span>SOLUCIONES REALES</span><span aria-hidden="true">✦</span><span>NO BUGS ALLOWED 👾</span><span aria-hidden="true">✦</span><span>FULL STACK POWER</span><span aria-hidden="true">✦</span></div>
+        <div class="play-ribbon-group" aria-hidden="true"><span>⚡ 100% CÓDIGO FRESCO</span><span>✦</span><span>COLOMBIA 🚀</span><span>✦</span><span>SOLUCIONES REALES</span><span>✦</span><span>NO BUGS ALLOWED 👾</span><span>✦</span><span>FULL STACK POWER</span><span>✦</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="play-github-arcade play-section" id="github-stats" aria-labelledby="play-github-title">
+    <div class="play-wrap">
+      <div class="play-section-heading">
+        <div>
+          <p class="play-kicker">00 / GITHUB COMMAND CENTER · @Msilva-debug</p>
+          <h2 id="play-github-title">Stats de código <br><span class="play-serif-word">en vivo 👾</span></h2>
+        </div>
+        <div class="play-side-note">
+          <span aria-hidden="true">⚡</span>
+          <p>Métricas directas<br>desde GitHub.</p>
+        </div>
+      </div>
+
+      <div class="play-github-grid">
+        <!-- Stat Cards -->
+        <div class="play-stat-box play-box-yellow">
+          <div class="play-stat-header">
+            <span class="play-stat-icon">⚡</span>
+            <span class="play-stat-tag">COMMITS</span>
+          </div>
+          <div class="play-stat-num">+{{ githubStats().totalCommits }}</div>
+          <div class="play-stat-desc">Commits Realizados</div>
+        </div>
+
+        <div class="play-stat-box play-box-pink">
+          <div class="play-stat-header">
+            <span class="play-stat-icon">📦</span>
+            <span class="play-stat-tag">REPOS</span>
+          </div>
+          <div class="play-stat-num">{{ githubStats().totalRepos }}</div>
+          <div class="play-stat-desc">Repositorios GitHub</div>
+        </div>
+
+        <div class="play-stat-box play-box-cyan">
+          <div class="play-stat-header">
+            <span class="play-stat-icon">🚀</span>
+            <span class="play-stat-tag">PUSHES</span>
+          </div>
+          <div class="play-stat-num">+{{ githubStats().recentPushes }}</div>
+          <div class="play-stat-desc">Pushes Recientes</div>
+        </div>
+
+        <div class="play-stat-box play-box-green">
+          <div class="play-stat-header">
+            <span class="play-stat-icon">🔥</span>
+            <span class="play-stat-tag">CÓDIGO</span>
+          </div>
+          <div class="play-stat-num">100%</div>
+          <div class="play-stat-desc">Fresco & Mantenido</div>
+        </div>
+      </div>
+
+      <!-- Top Languages Arcade Box -->
+      <div class="play-lang-arcade-box">
+        <div class="play-lang-arcade-top">
+          <h3>Top Languages & Tecnologías 📊</h3>
+          <a href="https://github.com/Msilva-debug" target="_blank" rel="noopener noreferrer" class="play-arcade-btn">
+            <span>Visitar @Msilva-debug ↗</span>
+          </a>
+        </div>
+
+        <div class="play-lang-arcade-bar">
+          @for (lang of githubStats().topLanguages; track lang.name) {
+            <div 
+              class="play-lang-arcade-seg" 
+              [style.width.%]="lang.percentage" 
+              [style.background-color]="lang.color"
+              [attr.title]="lang.name + ': ' + lang.percentage + '%'"
+            ></div>
+          }
+        </div>
+
+        <div class="play-lang-arcade-list">
+          @for (lang of githubStats().topLanguages; track lang.name) {
+            <div class="play-lang-arcade-item">
+              <span class="play-lang-arcade-dot" [style.background-color]="lang.color"></span>
+              <span class="play-lang-arcade-name">{{ lang.name }}</span>
+              <span class="play-lang-arcade-pct">{{ lang.percentage }}%</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="play-projects play-section" id="proyectos" aria-labelledby="play-projects-title">
+    <div class="play-wrap">
+      <div class="play-section-heading">
+        <div><p class="play-kicker">01 / DEL «¿Y SI…?» AL «YA ESTÁ»</p><h2 id="play-projects-title">Cosas que<br><span class="play-serif-word">he construido.</span></h2></div>
+        <div class="play-side-note"><span aria-hidden="true">↙</span><p>Aquí las ideas<br>sí salen del cuaderno.</p></div>
+      </div>
+
+      @if (isLoading()) {
+        <div class="play-empty" role="status"><span aria-hidden="true">✳</span><div><h3>Abriendo la caja de proyectos…</h3><p>Ya vienen las ideas que se convirtieron en software.</p></div></div>
+      } @else if (projects().length > 0) {
+        <div class="play-project-toolbar">
+          <div class="play-filter-list" role="group" aria-label="Filtrar proyectos por tipo">
+            @for (filter of projectFilters(); track filter.value) {
+              <button type="button" [class.is-selected]="selectedFilter() === filter.value" [attr.aria-pressed]="selectedFilter() === filter.value" (click)="selectFilter(filter.value)">{{ filter.label }}</button>
+            }
+          </div>
+          <p class="play-project-count" aria-live="polite">{{ visibleProjects().length }} {{ visibleProjects().length === 1 ? 'idea en acción' : 'ideas en acción' }}</p>
+        </div>
+
+        <app-portfolio-carousel
+          class="play-project-carousel"
+          [items]="visibleProjects()"
+          [speed]="46"
+          variant="playful-project"
+          label="Carrusel de proyectos creativos"
+        >
+          <ng-template #carouselItem let-project let-index="index">
+            @let repositories = repositoryLinks(project);
+            @let application = applicationLink(project);
+            @let metric = getRepoMetrics(project);
+            <article class="play-project-card" [class.play-card-lilac]="index % 3 === 1" [class.play-card-lime]="index % 3 === 2">
+              <div class="play-project-window">
+                <div class="play-window-bar" aria-hidden="true">
+                  <span class="play-window-dots">
+                    <i class="dot-red"></i>
+                    <i class="dot-yellow"></i>
+                    <i class="dot-green"></i>
+                  </span>
+                  <span class="play-window-slug">{{ project.slug }}</span>
+                  <span class="play-window-arrow">↗</span>
+                </div>
+                <div class="play-project-preview" [class.play-project-icon]="isIconPreview(projectImage(project))">
+                  @if (application) {
+                    <span class="play-live-badge">LIVE DEMO ⚡</span>
+                  }
+                  @if (projectImage(project)) {
+                    <img [src]="projectImage(project)" [alt]="'Vista previa de ' + project.name" loading="lazy">
+                  } @else {
+                    <div class="play-project-placeholder"><span aria-hidden="true">&lt;/&gt;</span><strong>{{ project.name }}</strong><span>DE LA IDEA AL CÓDIGO</span></div>
+                  }
+                </div>
+              </div>
+              <div class="play-project-copy">
+                <div class="play-project-meta">
+                  <span>@for (type of project.type; track type; let last = $last) { {{ typeLabel(type) }}{{ last ? '' : ' /' }} }</span>
+                  @if (metric) {
+                    <span class="play-repo-badge">★ {{ metric.stars }} · ⑂ {{ metric.forks }}</span>
+                  }
+                  <span class="play-project-number">{{ (index + 1).toString().padStart(2, '0') }}</span>
+                </div>
+                <h3>{{ project.name }}</h3>
+                <p>{{ projectSummary(project) }}</p>
+                <div class="play-tech-tags" aria-label="Tecnologías del proyecto">@for (technology of technologyTags(project); track technology) {<span>{{ technology }}</span>}</div>
+                <div class="play-project-actions" aria-label="Acciones del proyecto">
+                  @if (application) {
+                    <a class="play-button play-button-dark" data-action="open-project" [href]="application.url" target="_blank" rel="noopener noreferrer">
+                      Abrir proyecto <span aria-hidden="true">↗</span>
+                    </a>
+                  }
+                  @if (repositories.length === 1) {
+                    <a class="play-button play-button-paper" data-action="open-repository" [href]="repositories[0].url" target="_blank" rel="noopener noreferrer">
+                      Abrir repo <span aria-hidden="true">↗</span>
+                    </a>
+                  } @else if (repositories.length > 1) {
+                    <details class="play-repo-menu">
+                      <summary class="play-button play-button-paper" data-action="open-repository">
+                        Repositorios <span aria-hidden="true">＋</span>
+                      </summary>
+                      <div class="play-repo-panel">
+                        @for (repository of repositories; track repository.url) {
+                          <a [href]="repository.url" target="_blank" rel="noopener noreferrer">
+                            <span>{{ repository.label }}</span><span aria-hidden="true">↗</span>
+                          </a>
+                        }
+                      </div>
+                    </details>
+                  }
+                  <button class="play-button play-button-paper" data-action="open-details" type="button" (click)="projectDialog.open()">
+                    Ficha técnica <span aria-hidden="true">＋</span>
+                  </button>
+                </div>
+              </div>
+              <app-project-detail-dialog #projectDialog [project]="project" [summary]="projectSummary(project)" />
+            </article>
+          </ng-template>
+        </app-portfolio-carousel>
+        @if (visibleProjects().length === 0) {
+          <div class="play-empty"><span aria-hidden="true">↺</span><div><h3>Este rincón quedó vacío.</h3><p>Prueba otra categoría para seguir explorando.</p><button class="play-text-link" type="button" (click)="selectFilter('all')">Ver todos los proyectos</button></div></div>
+        }
+      } @else {
+        <div class="play-empty"><span aria-hidden="true">&lt;/&gt;</span><div><h3>El taller sigue abierto.</h3><p>No hay proyectos disponibles en este momento. Mientras tanto, conoce lo que hago y con qué trabajo.</p><a class="play-text-link" href="#experiencia">Pasa por mi recorrido ↗</a></div></div>
+      }
+    </div>
+  </section>
+
+  <section class="play-about play-section" id="perfil" aria-labelledby="play-about-title">
+    <div class="play-wrap play-about-layout">
+      <div class="play-about-heading">
+        <p class="play-kicker">02 / EL HUMANO DETRÁS DEL TECLADO</p>
+        <h2 id="play-about-title">Mucho gusto.<br>Y mucha<br><span class="play-underlined">curiosidad.</span></h2>
+        <span class="play-about-flower" aria-hidden="true">✳</span>
+        <p class="play-about-caption">Mismo Mateo.<br>Un poco menos de formalidad.</p>
+        
+        <div class="play-fun-stats" aria-label="Datos curiosos">
+          <div class="play-stat-chip"><span>☕</span> <strong>+1000</strong> Tazas de café</div>
+          <div class="play-stat-chip"><span>🚀</span> <strong>100%</strong> Entusiasmo</div>
+          <div class="play-stat-chip"><span>⚡</span> <strong>0%</strong> Código aburrido</div>
+        </div>
+      </div>
+      <div class="play-about-copy">
+        <p class="play-big-copy">Me gusta entender cómo encajan las cosas. Y después, <strong>hacer que funcionen juntas.</strong></p>
+        <p>Desarrollo soluciones web y móviles, desde la arquitectura hasta producción. Trabajo con Angular, Java, Spring Boot y PHP; también con Android, bases de datos y servicios en Docker.</p>
+        <p>Antes de escribir código, intento entender qué se necesita. Mi norte: soluciones fáciles de mantener, sin complicarlas porque sí.</p>
+        <div class="play-education-note">
+          <span class="play-mini-tape" aria-hidden="true"></span>
+          <span class="play-stamp-icon" aria-hidden="true">✦</span>
+          <p class="play-note-kicker">EL APRENDIZAJE SIGUE EN OBRA ↗</p>
+          <div><strong>Ingeniería de Sistemas</strong><span>UNAD · 2024 — Actualidad</span></div>
+          <div><strong>Técnico en Programación de Software</strong><span>SENA · 2021</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="play-experience play-section" id="experiencia" aria-labelledby="play-experience-title">
+    <div class="play-wrap">
+      <div class="play-section-heading"><div><p class="play-kicker">03 / HAY RECORRIDO DETRÁS DEL JUEGO</p><h2 id="play-experience-title">Esto no empezó<br><span class="play-serif-word">ayer.</span></h2></div><p class="play-section-intro">Ideas, equipos, despliegues.<br>Y mucho aprender haciendo.</p></div>
+      <div class="play-journey">
+        <article class="play-journey-card">
+          <div class="play-journey-index" aria-hidden="true">🚀</div>
+          <div>
+            <p class="play-date">MAYO 2025 — ACTUALIDAD · PLAYTECH <span class="play-live-dot-sm"></span></p>
+            <h3>Construir.<br>Y ayudar a construir.</h3>
+            <p class="play-role">Líder de Desarrollo / Desarrollador de Software</p>
+            <p>Coordino tareas técnicas, acompaño decisiones de arquitectura y desarrollo soluciones web y móviles. También planifico despliegues de QA y producción con Ubuntu y Docker.</p>
+          </div>
+          <span class="play-journey-label">CAPÍTULO 01 · EN CURSO</span>
+        </article>
+        <article class="play-journey-card">
+          <div class="play-journey-index" aria-hidden="true">&lt;/&gt;</div>
+          <div>
+            <p class="play-date">AGOSTO 2022 — MAYO 2025 · PLAYTECH</p>
+            <h3>Las ideas empezaron<br>a tomar forma.</h3>
+            <p class="play-role">Desarrollador de Software</p>
+            <p>Desarrollé y mantuve aplicaciones empresariales con Spring Boot, PHP y Angular. También trabajé en soluciones Android, integraciones y servicios contenerizados.</p>
+          </div>
+          <span class="play-journey-label">CAPÍTULO 02 · RECORRIDO</span>
+        </article>
+      </div>
+
+      <div class="play-toolbox"><div class="play-toolbox-title"><span aria-hidden="true">✷</span><div><p class="play-kicker">MI CAJA DE HERRAMIENTAS</p><h3>Para hacer que pase.</h3></div></div><div class="play-toolbox-tags"><span>Angular</span><span>TypeScript</span><span>Java</span><span>Spring Boot</span><span>PHP</span><span>JavaScript</span><span>Android SDK</span><span>PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>Docker</span><span>Ubuntu</span><span>Git / GitHub</span><span>Postman / Swagger</span><span>REST APIs</span><span>Scrum</span></div></div>
+    </div>
+  </section>
+
+  <section class="play-certifications play-section" id="certificaciones" aria-labelledby="play-certifications-title">
+    <div class="play-wrap">
+      <div class="play-section-heading"><div><p class="play-kicker">04 / APRENDER TAMBIÉN DEJA RECUERDOS</p><h2 id="play-certifications-title">Mi colección<br><span class="play-serif-word">de logros.</span></h2></div><div class="play-certification-count"><strong>{{ certifications().length.toString().padStart(2, '0') }}</strong><span>{{ certifications().length === 1 ? 'CERTIFICACIÓN' : 'CERTIFICACIONES' }}<br>Y GANAS DE SEGUIR</span></div></div>
+      @if (isLoading()) {
+        <div class="play-empty" role="status"><span aria-hidden="true">✳</span><div><h3>Buscando las estampillas…</h3><p>La colección de certificaciones está cargando.</p></div></div>
+      } @else {
+        @if (certifications().length > 0) {
+          <app-portfolio-carousel
+            class="play-certification-carousel"
+            [items]="certifications()"
+            [speed]="40"
+            variant="playful-certification"
+            label="Carrusel de certificaciones creativas"
+          >
+            <ng-template #carouselItem let-certification let-index="index">
+            <article class="play-stamp" [class.play-stamp-lime]="index % 3 === 1" [class.play-stamp-coral]="index % 3 === 2">
+              <span class="play-stamp-gold-seal" aria-hidden="true">VERIFIED ✦</span>
+              <div class="play-stamp-top"><span>{{ certification.issuer }}</span><span>{{ (index + 1).toString().padStart(2, '0') }} / MS</span></div>
+              <div class="play-stamp-cover">
+                @if (certification.coverImageUrl) {<img [src]="certification.coverImageUrl" [alt]="'Vista previa de ' + certification.title" loading="lazy">} @else {<span class="play-stamp-seal" aria-hidden="true">✳</span><span>ALGO NUEVO<br>APRENDIDO.</span>}
+              </div>
+              <div class="play-stamp-copy">@if (certification.issuedAt) {<p class="play-date">{{ certification.issuedAt }}</p>}<h3>{{ certification.title }}</h3>@if (certification.description) {<p>{{ certification.description }}</p>}</div>
+              <div class="play-stamp-actions"><a [href]="certification.fileUrl" target="_blank" rel="noopener noreferrer">Ver certificado <span aria-hidden="true">↗</span></a>@if (certification.credentialUrl) {<a class="play-stamp-verify" [href]="certification.credentialUrl" target="_blank" rel="noopener noreferrer">Validar credencial ↗</a>}</div>
+            </article>
+            </ng-template>
+          </app-portfolio-carousel>
+        } @else {
+          <div class="play-empty"><span aria-hidden="true">✳</span><div><h3>Hay espacio para más logros.</h3><p>Las certificaciones no están disponibles en este momento. Lo que nunca falta son las ganas de seguir aprendiendo.</p></div></div>
+        }
+      }
+    </div>
+  </section>
+
+  <section class="play-contact play-section" id="contacto" aria-labelledby="play-contact-title">
+    <div class="play-wrap">
+      <div class="play-contact-top">
+        <p class="play-kicker">05 / LAS BUENAS IDEAS EMPIEZAN CON UN HOLA</p>
+        <div class="play-contact-smile-wrapper">
+          <span class="play-contact-smile" aria-hidden="true">☺</span>
+          <span class="play-speech-bubble" aria-hidden="true">¿Café o código? ☕</span>
+        </div>
+      </div>
+      <h2 id="play-contact-title">¿Armamos<br>algo <span class="play-contact-word">bacano<svg viewBox="0 0 430 25" aria-hidden="true"><path d="M5 16C100 3 305 2 423 13M27 22C153 12 267 15 374 18" /></svg></span>?</h2>
+      <div class="play-contact-bottom"><div><p>Una idea, un proyecto o una buena conversación sobre software.<br>El primer paso puede ser un correo.</p><a class="play-email" [href]="'mailto:' + email()">{{ email() }} <span aria-hidden="true">↗</span></a><p class="play-copy-status" aria-live="polite">{{ copyStatus() }}</p></div><div class="play-contact-actions"><button class="play-button play-button-dark" data-action="copy-email" type="button" (click)="copyRequested.emit()">Copiar correo <span aria-hidden="true">⧉</span></button><a class="play-button play-button-paper" href="https://www.linkedin.com/in/mateo-celis-silva" target="_blank" rel="noopener noreferrer">Nos vemos en LinkedIn <span aria-hidden="true">↗</span></a><button class="play-text-link" data-action="download-resume" type="button" (click)="downloadRequested.emit()">Llévate mi hoja de vida <span aria-hidden="true">↓</span></button></div></div>
+    </div>
+  </section>
+
+  <footer class="play-footer">
+    <div class="play-wrap">
+      <a href="#inicio" class="play-footer-signature">MATEO SILVA <span aria-hidden="true">✳</span></a>
+      <p>Hecho con código y personalidad.<br>© {{ year() }} · Colombia</p>
+      <a class="play-text-link play-rocket-link" href="#inicio">Otra vuelta <span class="play-rocket-icon" aria-hidden="true">🚀</span></a>
+    </div>
+  </footer>
+</main>

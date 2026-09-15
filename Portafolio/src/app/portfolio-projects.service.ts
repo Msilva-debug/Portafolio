@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EMPTY_PORTFOLIO_CONFIG, PORTFOLIO_CONFIG_URL, PortfolioConfig, PortfolioLink, ResolvedPortfolioConfig } from './portfolio.config';
 import { Project, ProjectLink, ProjectTechnologies } from './project.model';
 import { Certification } from './certification.model';
+import { DEFAULT_GITHUB_STATS, GithubUserStats, LANGUAGE_COLORS, LanguagePercentage, RepoMetric } from './github-stats.model';
 
 type RawProject = Partial<Omit<Project, 'technologies' | 'screenshots'>> & {
   technologies?: Partial<ProjectTechnologies>;
@@ -17,6 +18,123 @@ type ScreenshotManifest = string[] | {
 export class PortfolioProjectsService {
   private readonly certificationFilePattern = /\.(pdf|png|jpe?g|webp|gif|svg)$/i;
   private readonly certificationImagePattern = /\.(png|jpe?g|webp|gif|svg)$/i;
+
+  async loadGithubStats(username = 'Msilva-debug'): Promise<GithubUserStats> {
+    try {
+      const [userRes, reposRes, commitsRes, eventsRes] = await Promise.all([
+        fetch(`https://api.github.com/users/${username}`),
+        fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`),
+        fetch(`https://api.github.com/search/commits?q=author:${username}`, {
+          headers: { Accept: 'application/vnd.github.cloak-preview+json' },
+        }).catch(() => null),
+        fetch(`https://api.github.com/users/${username}/events`).catch(() => null),
+      ]);
+
+      if (!userRes.ok && !reposRes.ok) {
+        return DEFAULT_GITHUB_STATS;
+      }
+
+      const userData = userRes.ok ? await userRes.json() : null;
+      const reposData: any[] = reposRes.ok ? await reposRes.json() : [];
+      const commitsData = commitsRes?.ok ? await commitsRes.json() : null;
+      const eventsData: any[] = eventsRes?.ok ? await eventsRes.json() : [];
+
+      let totalCommits = commitsData?.total_count ?? 0;
+      let recentPushes = 0;
+
+      if (Array.isArray(eventsData)) {
+        for (const event of eventsData) {
+          if (event.type === 'PushEvent') {
+            recentPushes += event.payload?.size || event.payload?.commits?.length || 1;
+          }
+        }
+      }
+
+      if (totalCommits === 0) {
+        totalCommits = DEFAULT_GITHUB_STATS.totalCommits;
+      }
+
+      if (recentPushes === 0) {
+        recentPushes = DEFAULT_GITHUB_STATS.recentPushes;
+      }
+
+      if (!Array.isArray(reposData) || reposData.length === 0) {
+        return {
+          ...DEFAULT_GITHUB_STATS,
+          totalCommits,
+          totalRepos: userData?.public_repos ?? DEFAULT_GITHUB_STATS.totalRepos,
+          recentPushes,
+        };
+      }
+
+      const langCounts: Record<string, number> = {};
+      const repoMetrics: Record<string, RepoMetric> = {};
+
+      for (const repo of reposData) {
+        if (repo.fork) continue;
+
+        const lang = repo.language;
+        if (lang) {
+          langCounts[lang] = (langCounts[lang] || 0) + 1;
+        }
+
+        const repoNameKey = repo.name.toLowerCase();
+        repoMetrics[repoNameKey] = {
+          name: repo.name,
+          stars: repo.stargazers_count || 0,
+          forks: repo.forks_count || 0,
+          language: repo.language || 'Código',
+          updatedAt: repo.updated_at,
+          url: repo.html_url,
+        };
+      }
+
+      const totalLangRepos = Object.values(langCounts).reduce((acc, c) => acc + c, 0);
+      let topLanguages: LanguagePercentage[] = [];
+
+      if (totalLangRepos > 0) {
+        const sortedLangs = Object.entries(langCounts).sort((a, b) => b[1] - a[1]);
+        const top = sortedLangs.slice(0, 4);
+        const remaining = sortedLangs.slice(4);
+
+        let topPercentageSum = 0;
+        topLanguages = top.map(([name, count]) => {
+          const pct = Math.round((count / totalLangRepos) * 100);
+          topPercentageSum += pct;
+          return {
+            name,
+            percentage: pct,
+            color: LANGUAGE_COLORS[name] || '#6e7681',
+          };
+        });
+
+        if (remaining.length > 0) {
+          const remainingPct = Math.max(0, 100 - topPercentageSum);
+          if (remainingPct > 0) {
+            topLanguages.push({
+              name: 'Otros',
+              percentage: remainingPct,
+              color: '#6e7681',
+            });
+          }
+        }
+      } else {
+        topLanguages = DEFAULT_GITHUB_STATS.topLanguages;
+      }
+
+      return {
+        username,
+        totalCommits,
+        totalRepos: userData?.public_repos ?? reposData.length,
+        recentPushes,
+        topLanguages: topLanguages.length > 0 ? topLanguages : DEFAULT_GITHUB_STATS.topLanguages,
+        repoMetrics: Object.keys(repoMetrics).length > 0 ? repoMetrics : DEFAULT_GITHUB_STATS.repoMetrics,
+      };
+    } catch (error) {
+      console.warn('No se pudieron obtener las estadísticas en vivo de GitHub, usando datos por defecto.', error);
+      return DEFAULT_GITHUB_STATS;
+    }
+  }
 
   async loadProjects(): Promise<Project[]> {
     const config = await this.loadConfig();

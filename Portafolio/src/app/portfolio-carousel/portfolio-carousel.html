@@ -1,0 +1,31 @@
+<div
+  #viewport
+  class="portfolio-carousel"
+  [class]="'portfolio-carousel ' + variant()"
+  tabindex="0"
+  [attr.aria-label]="label()"
+  (wheel)="nudge($event)"
+  (pointerdown)="beginDrag($event)"
+  (pointermove)="moveDrag($event)"
+  (pointerup)="endDrag($event)"
+  (pointercancel)="endDrag($event)"
+>
+  <div #track class="portfolio-carousel-track" [class.is-single]="items().length <= 1" role="list">
+    @for (entry of carouselItems(); track entry.key) {
+      <div
+        class="portfolio-carousel-item"
+        role="listitem"
+        [attr.aria-hidden]="items().length > 1 && entry.copy !== 1 ? 'true' : null"
+        (pointerdown)="selectItem($event)"
+        (focusin)="selectItem($event)"
+      >
+        @if (itemTemplate) {
+          <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{ $implicit: entry.item, index: entry.index }"
+          />
+        }
+      </div>
+    }
+  </div>
+</div>
